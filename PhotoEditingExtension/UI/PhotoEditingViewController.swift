@@ -12,13 +12,20 @@ import PhotosUI
 
 class PhotoEditingViewController: UIViewController, PHContentEditingController {
 
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var photoImageView: UIImageView!
     
     let adjustmentDataFormatIdentifier = "com.elpassion.SwiftMustaches.MustacheAnnotation"
     let adjustmentDataformatVersion = "0.1"
     
     var input: PHContentEditingInput?
-
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupBackgroundEffect()
+    }
+    
     // MARK: - PHContentEditingController
 
     func canHandleAdjustmentData(adjustmentData: PHAdjustmentData?) -> Bool {
@@ -37,6 +44,7 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
             return
         }
         
+        backgroundImageView.image = placeholderImage
         photoImageView.image = annotate(image: input.displaySizeImage)
     }
 
@@ -80,6 +88,25 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
         let mustacheImage = UIImage(named: "mustache")
         let mustacheAnnotation = MustacheAnnotation(mustacheImage: mustacheImage)
         return mustacheAnnotation.annotatedImage(sourceImage: image)
+    }
+    
+    private func setupBackgroundEffect() {
+        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+        effectView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        view.insertSubview(effectView, aboveSubview: backgroundImageView)
+        
+        let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+            "V:|[effectView]|",
+            options: NSLayoutFormatOptions.allZeros,
+            metrics: nil,
+            views: ["effectView": effectView])
+        let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
+            "H:|[effectView]|",
+            options: NSLayoutFormatOptions.allZeros,
+            metrics: nil,
+            views: ["effectView": effectView])
+        view.addConstraints(verticalConstraints)
+        view.addConstraints(horizontalConstraints)
     }
 
 }
