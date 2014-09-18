@@ -13,13 +13,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var openBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    var loading: Bool = true {
+        didSet {
+            self.photoImageView.hidden = loading
+            self.openBarButtonItem.enabled = !loading
+            self.saveBarButtonItem.enabled = !loading
+            if loading {
+                self.activityIndicator.startAnimating()
+            }
+            else {
+                self.activityIndicator.stopAnimating()
+            }
+        }
+    }
     
     var image: UIImage? {
         didSet {
             if let image = image {
-                let mustacheImage = UIImage(named: "mustache")
-                let annotation = MustacheAnnotation(mustacheImage: mustacheImage)
-                self.image = annotation.annotatedImage(sourceImage: image)
                 self.photoImageView.image = self.image
             }
             else {
@@ -47,8 +59,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!)  {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.image = image
             dismissViewControllerAnimated(true, completion: nil)
+            loading = true
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { [weak self] () -> Void in
+                let mustacheImage = UIImage(named: "mustache")
+                let annotation = MustacheAnnotation(mustacheImage: mustacheImage)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    if let strongSelf = self {
+                        strongSelf.image = annotation.annotatedImage(sourceImage: image)
+                        strongSelf.loading = false
+                    }
+                })
+            })
         }
     }
 
