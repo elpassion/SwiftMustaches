@@ -13,6 +13,11 @@
 		31E6415419CAD4C10041421D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31E6415319CAD4C10041421D /* Images.xcassets */; };
 		31E6415719CAD4C10041421D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31E6415519CAD4C10041421D /* LaunchScreen.xib */; };
 		31E6416319CAD4C10041421D /* SwiftMustachesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6416219CAD4C10041421D /* SwiftMustachesTests.swift */; };
+		31E6417619CADC100041421D /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E6417519CADC100041421D /* PhotosUI.framework */; };
+		31E6417819CADC100041421D /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E6417719CADC100041421D /* Photos.framework */; };
+		31E6417D19CADC100041421D /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6417C19CADC100041421D /* PhotoEditingViewController.swift */; };
+		31E6417F19CADC100041421D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E6417E19CADC100041421D /* MainInterface.storyboard */; };
+		31E6418219CADC100041421D /* PhotoEditingExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 31E6417319CADC100041421D /* PhotoEditingExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,7 +28,35 @@
 			remoteGlobalIDString = 31E6414619CAD4C10041421D;
 			remoteInfo = SwiftMustaches;
 		};
+		31E6418019CADC100041421D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31E6413F19CAD4C10041421D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 31E6417219CADC100041421D;
+			remoteInfo = PhotoEditingExtension;
+		};
+		31E6418319CADC110041421D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31E6413F19CAD4C10041421D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 31E6417219CADC100041421D;
+			remoteInfo = PhotoEditingExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		31E6418819CADC110041421D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				31E6418219CADC100041421D /* PhotoEditingExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		31E6414719CAD4C10041421D /* SwiftMustaches.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMustaches.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,6 +69,12 @@
 		31E6415C19CAD4C10041421D /* SwiftMustachesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMustachesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E6416119CAD4C10041421D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31E6416219CAD4C10041421D /* SwiftMustachesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMustachesTests.swift; sourceTree = "<group>"; };
+		31E6417319CADC100041421D /* PhotoEditingExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PhotoEditingExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		31E6417519CADC100041421D /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		31E6417719CADC100041421D /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		31E6417B19CADC100041421D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		31E6417C19CADC100041421D /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
+		31E6417E19CADC100041421D /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +92,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		31E6417019CADC100041421D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31E6417619CADC100041421D /* PhotosUI.framework in Frameworks */,
+				31E6417819CADC100041421D /* Photos.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -61,6 +109,8 @@
 			children = (
 				31E6414919CAD4C10041421D /* SwiftMustaches */,
 				31E6415F19CAD4C10041421D /* SwiftMustachesTests */,
+				31E6417919CADC100041421D /* PhotoEditingExtension */,
+				31E6417419CADC100041421D /* Frameworks */,
 				31E6414819CAD4C10041421D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,6 +120,7 @@
 			children = (
 				31E6414719CAD4C10041421D /* SwiftMustaches.app */,
 				31E6415C19CAD4C10041421D /* SwiftMustachesTests.xctest */,
+				31E6417319CADC100041421D /* PhotoEditingExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -136,6 +187,41 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		31E6417419CADC100041421D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				31E6417519CADC100041421D /* PhotosUI.framework */,
+				31E6417719CADC100041421D /* Photos.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		31E6417919CADC100041421D /* PhotoEditingExtension */ = {
+			isa = PBXGroup;
+			children = (
+				31E6418919CADC560041421D /* UI */,
+				31E6417A19CADC100041421D /* Supporting Files */,
+			);
+			path = PhotoEditingExtension;
+			sourceTree = "<group>";
+		};
+		31E6417A19CADC100041421D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				31E6417B19CADC100041421D /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		31E6418919CADC560041421D /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				31E6417C19CADC100041421D /* PhotoEditingViewController.swift */,
+				31E6417E19CADC100041421D /* MainInterface.storyboard */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -146,10 +232,13 @@
 				31E6414319CAD4C10041421D /* Sources */,
 				31E6414419CAD4C10041421D /* Frameworks */,
 				31E6414519CAD4C10041421D /* Resources */,
+				31E6418819CADC110041421D /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				31E6418119CADC100041421D /* PBXTargetDependency */,
+				31E6418419CADC110041421D /* PBXTargetDependency */,
 			);
 			name = SwiftMustaches;
 			productName = SwiftMustaches;
@@ -174,6 +263,23 @@
 			productReference = 31E6415C19CAD4C10041421D /* SwiftMustachesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		31E6417219CADC100041421D /* PhotoEditingExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 31E6418719CADC110041421D /* Build configuration list for PBXNativeTarget "PhotoEditingExtension" */;
+			buildPhases = (
+				31E6416F19CADC100041421D /* Sources */,
+				31E6417019CADC100041421D /* Frameworks */,
+				31E6417119CADC100041421D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PhotoEditingExtension;
+			productName = PhotoEditingExtension;
+			productReference = 31E6417319CADC100041421D /* PhotoEditingExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -189,6 +295,9 @@
 					31E6415B19CAD4C10041421D = {
 						CreatedOnToolsVersion = 6.0.1;
 						TestTargetID = 31E6414619CAD4C10041421D;
+					};
+					31E6417219CADC100041421D = {
+						CreatedOnToolsVersion = 6.0.1;
 					};
 				};
 			};
@@ -207,6 +316,7 @@
 			targets = (
 				31E6414619CAD4C10041421D /* SwiftMustaches */,
 				31E6415B19CAD4C10041421D /* SwiftMustachesTests */,
+				31E6417219CADC100041421D /* PhotoEditingExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -226,6 +336,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31E6417119CADC100041421D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31E6417F19CADC100041421D /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +367,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		31E6416F19CADC100041421D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31E6417D19CADC100041421D /* PhotoEditingViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -256,6 +382,16 @@
 			isa = PBXTargetDependency;
 			target = 31E6414619CAD4C10041421D /* SwiftMustaches */;
 			targetProxy = 31E6415D19CAD4C10041421D /* PBXContainerItemProxy */;
+		};
+		31E6418119CADC100041421D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 31E6417219CADC100041421D /* PhotoEditingExtension */;
+			targetProxy = 31E6418019CADC100041421D /* PBXContainerItemProxy */;
+		};
+		31E6418419CADC110041421D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 31E6417219CADC100041421D /* PhotoEditingExtension */;
+			targetProxy = 31E6418319CADC110041421D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -412,6 +548,30 @@
 			};
 			name = Release;
 		};
+		31E6418519CADC110041421D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PhotoEditingExtension/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		31E6418619CADC110041421D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "PhotoEditingExtension/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -431,12 +591,22 @@
 				31E6416819CAD4C10041421D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		31E6416919CAD4C10041421D /* Build configuration list for PBXNativeTarget "SwiftMustachesTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				31E6416A19CAD4C10041421D /* Debug */,
 				31E6416B19CAD4C10041421D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		31E6418719CADC110041421D /* Build configuration list for PBXNativeTarget "PhotoEditingExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				31E6418519CADC110041421D /* Debug */,
+				31E6418619CADC110041421D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
