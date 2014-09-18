@@ -26,19 +26,20 @@ class MustacheAnnotation {
                 CIDetectorTracking: false,
                 CIDetectorMinFeatureSize: NSNumber(float: 0.1)
             ])
-        let ciImage = CIImage(CGImage: sourceImage.CGImage)
-        let features = detector.featuresInImage(
-            ciImage,
-            options:
-            [
-                CIDetectorImageOrientation: sourceImage.orientationPropertyValueFromImageOrientation(),
-                CIDetectorEyeBlink: false,
-                CIDetectorSmile: false
-            ])
         
         UIGraphicsBeginImageContextWithOptions(sourceImage.size, true, sourceImage.scale)
         let context = UIGraphicsGetCurrentContext()!
         sourceImage.drawAtPoint(CGPointZero)
+        
+        let ciImage = CIImage(CGImage: UIGraphicsGetImageFromCurrentImageContext()!.CGImage)
+        let features = detector.featuresInImage(
+            ciImage,
+            options:
+            [
+                CIDetectorImageOrientation: UIImage.orientationPropertyValueFromImageOrientation(.Up),
+                CIDetectorEyeBlink: false,
+                CIDetectorSmile: false
+            ])
         
         for feature in features as [CIFaceFeature] {
             
