@@ -12,6 +12,8 @@ import PhotosUI
 
 class PhotoEditingViewController: UIViewController, PHContentEditingController {
 
+    @IBOutlet weak var photoImageView: UIImageView!
+    
     var input: PHContentEditingInput?
 
     override func viewDidLoad() {
@@ -36,7 +38,24 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
         // Present content for editing, and keep the contentEditingInput for use when closing the edit session.
         // If you returned YES from canHandleAdjustmentData:, contentEditingInput has the original image and adjustment data.
         // If you returned NO, the contentEditingInput has past edits "baked in".
-        input = contentEditingInput
+        self.input = contentEditingInput
+        
+        if self.input == nil {
+            return
+        }
+        let input = self.input!
+        
+        if input.mediaType != .Image {
+            return
+        }
+        
+        let mustacheImage = UIImage(named: "mustache")
+        let mustacheAnnotation = MustacheAnnotation(mustacheImage: mustacheImage)
+        
+        let displaySizeImage = input.displaySizeImage
+        let displaySizeAnnotatedImage = mustacheAnnotation.annotatedImage(sourceImage: displaySizeImage)
+        
+        photoImageView.image = displaySizeAnnotatedImage
     }
 
     func finishContentEditingWithCompletionHandler(completionHandler: ((PHContentEditingOutput!) -> Void)!) {
@@ -52,8 +71,23 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
             // let renderedJPEGData = <#output JPEG#>
             // renderedJPEGData.writeToURL(output.renderedContentURL, atomically: true)
             
-            // Call completion handler to commit edit to Photos.
-            completionHandler?(output)
+            let mustacheImage = UIImage(named: "mustache")
+            let mustacheAnnotation = MustacheAnnotation(mustacheImage: mustacheImage)
+            
+            let fullSizeImageUrl = self.input!.fullSizeImageURL
+            let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl)
+            let fullSizeAnnotatedImage = mustacheAnnotation.annotatedImage(sourceImage: fullSizeImage)
+            let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
+            
+            var error: NSError?
+            let success = fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite, error: &error)
+            if success {
+                completionHandler?(output)
+            }
+            else {
+                NSLog("Error when writing file: \(error)")
+                completionHandler?(nil)
+            }
             
             // Clean up temporary files, etc.
         }

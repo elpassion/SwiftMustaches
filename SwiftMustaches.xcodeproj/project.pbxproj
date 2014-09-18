@@ -24,6 +24,7 @@
 		31ED765B19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED765919CB0E06007365DC /* UIImage+RotatedImage.swift */; };
 		31ED765D19CB10E4007365DC /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED765C19CB10E4007365DC /* UIImage+ImageOrientation.swift */; };
 		31ED765E19CB10E4007365DC /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED765C19CB10E4007365DC /* UIImage+ImageOrientation.swift */; };
+		31ED765F19CB1CA7007365DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31E6415319CAD4C10041421D /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -372,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31E6417F19CADC100041421D /* MainInterface.storyboard in Resources */,
+				31ED765F19CB1CA7007365DC /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
