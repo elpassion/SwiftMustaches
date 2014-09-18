@@ -34,7 +34,7 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
     func canHandleAdjustmentData(adjustmentData: PHAdjustmentData?) -> Bool {
         // Inspect the adjustmentData to determine whether your extension can work with past edits.
         // (Typically, you use its formatIdentifier and formatVersion properties to do this.)
-        return false
+        return adjustmentData?.formatIdentifier == self.adjustmentDataFormatIdentifier && adjustmentData?.formatVersion == self.adjustmentDataformatVersion
     }
 
     func startContentEditingWithInput(contentEditingInput: PHContentEditingInput?, placeholderImage: UIImage) {
