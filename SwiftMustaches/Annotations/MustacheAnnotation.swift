@@ -42,52 +42,6 @@ class MustacheAnnotation {
             ])
         
         for feature in features as [CIFaceFeature] {
-            
-            // TESTING: annotate face, eyes and mouth on image
-            
-            var faceRect = feature.bounds
-            faceRect.origin.y = sourceImage.size.height - feature.bounds.height - feature.bounds.origin.y
-            CGContextSetStrokeColorWithColor(context, UIColor.whiteColor().CGColor)
-            CGContextStrokeRectWithWidth(context, faceRect, 2.0)
-            
-            let eyeRectSize = CGSize(width: faceRect.width / 5, height: faceRect.height / 5)
-            let mouthRectSize = CGSize(width: faceRect.width / 3, height: faceRect.height / 6)
-            
-            if feature.hasLeftEyePosition {
-                let leftEyeRect = CGRect(
-                    x: feature.leftEyePosition.x - (eyeRectSize.width / 2),
-                    y: sourceImage.size.height - feature.leftEyePosition.y - (eyeRectSize.height / 2),
-                    width: eyeRectSize.width,
-                    height: eyeRectSize.height)
-                CGContextSetFillColorWithColor(context, UIColor(red: 0, green: 0, blue: 1, alpha: 0.4).CGColor)
-                CGContextFillEllipseInRect(context, leftEyeRect);
-            }
-            
-            if feature.hasRightEyePosition {
-                let rightEyeRect = CGRect(
-                    x: feature.rightEyePosition.x - (eyeRectSize.width / 2),
-                    y: sourceImage.size.height - feature.rightEyePosition.y - (eyeRectSize.height / 2),
-                    width: eyeRectSize.width,
-                    height: eyeRectSize.height)
-                CGContextSetFillColorWithColor(context, UIColor(red: 0, green: 0, blue: 1, alpha: 0.4).CGColor)
-                CGContextFillEllipseInRect(context, rightEyeRect)
-            }
-            
-            if feature.hasMouthPosition {
-                let mouthRectSize = CGSize(
-                    width: faceRect.width / 1.5,
-                    height: faceRect.height / 5)
-                let mouthRect = CGRect(
-                    x: feature.mouthPosition.x - (mouthRectSize.width / 2),
-                    y: sourceImage.size.height - feature.mouthPosition.y - (mouthRectSize.height / 2),
-                    width: mouthRectSize.width,
-                    height: mouthRectSize.height)
-                CGContextSetFillColorWithColor(context, UIColor(red: 1, green: 0, blue: 0, alpha: 0.4).CGColor)
-                CGContextFillEllipseInRect(context, mouthRect)
-            }
-            
-            // TESTING: end
-            
             if feature.hasMouthPosition {
                 var faceRect = feature.bounds
                 let mouthRectSize = CGSize(
