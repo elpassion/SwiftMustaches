@@ -17,7 +17,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var image: UIImage? {
         didSet {
             if let image = image {
-                self.photoImageView.image = image
+                let mustacheImage = UIImage(named: "mustache")
+                let annotation = MustacheAnnotation(mustacheImage: mustacheImage)
+                self.image = annotation.annotatedImage(sourceImage: image)
+                self.photoImageView.image = self.image
             }
             else {
                 self.photoImageView.image = nil
