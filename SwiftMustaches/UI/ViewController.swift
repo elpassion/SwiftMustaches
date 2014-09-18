@@ -8,18 +8,46 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var openBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
+    
+    var image: UIImage? {
+        didSet {
+            if let image = image {
+                self.photoImageView.image = image
+            }
+            else {
+                self.photoImageView.image = nil
+            }
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    // MARK: - UI Actions
+    
+    @IBAction func openBarButtonItemAction(sender: UIBarButtonItem) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
+        imagePicker.delegate = self
+        presentViewController(imagePicker, animated: true, completion: nil)
     }
-
+    
+    @IBAction func saveBarButtonItemAction(sender: UIBarButtonItem) {
+        if let image = image {
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+        }
+    }
+    
+    // MARK: - UIImagePickerControllerDelegate
+    
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!)  {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.image = image
+            dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
 
 }
 

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A361c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -15,8 +16,43 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HWg-pp-QVa">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Open" id="SwC-4d-B1A">
+                                        <connections>
+                                            <action selector="openBarButtonItemAction:" destination="BYZ-38-t0r" id="6ns-8z-BbO"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="aI2-uq-n6A"/>
+                                    <barButtonItem title="Save" id="JgW-ba-H1o">
+                                        <connections>
+                                            <action selector="saveBarButtonItemAction:" destination="BYZ-38-t0r" id="wkX-Nh-xU8"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Hp-nv-QCR">
+                                <rect key="frame" x="0.0" y="20" width="600" height="536"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="HWg-pp-QVa" secondAttribute="bottom" id="5Ye-vf-LSy"/>
+                            <constraint firstItem="HWg-pp-QVa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="866-Li-ben"/>
+                            <constraint firstItem="HWg-pp-QVa" firstAttribute="top" secondItem="5Hp-nv-QCR" secondAttribute="bottom" id="IQR-eN-640"/>
+                            <constraint firstItem="5Hp-nv-QCR" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="16" id="Iqb-5s-sYv"/>
+                            <constraint firstItem="5Hp-nv-QCR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="fy0-h4-INv"/>
+                            <constraint firstItem="5Hp-nv-QCR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="pXI-gB-9A1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="HWg-pp-QVa" secondAttribute="trailing" constant="-16" id="qyV-L3-xJp"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="openBarButtonItem" destination="SwC-4d-B1A" id="JbL-IG-bIw"/>
+                        <outlet property="photoImageView" destination="5Hp-nv-QCR" id="ire-xu-df2"/>
+                        <outlet property="saveBarButtonItem" destination="JgW-ba-H1o" id="hF2-Wp-tJa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
