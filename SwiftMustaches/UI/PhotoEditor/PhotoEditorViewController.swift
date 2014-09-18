@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -15,12 +16,19 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
-    private var image: UIImage? {
+    var input: PHContentEditingInput? {
         didSet {
+            if let input = input {
+                photoImageView.image = annotate(image: input.displaySizeImage)
+            }
+            else {
+                photoImageView.image = nil
+            }
             updateUI()
-            self.photoImageView.image = image
         }
     }
+    
+    var asset: PHAsset?
     
     private var loading: Bool = false {
         didSet {
@@ -37,15 +45,22 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     // MARK: - UI
     
     private func updateUI() {
-        self.photoImageView.hidden = loading
-        self.openBarButtonItem.enabled = !loading && !saving
-        self.saveBarButtonItem.enabled = !loading && !saving && (self.photoImageView.image != nil)
-        if loading || saving {
-            self.activityIndicatorView.startAnimating()
-        }
-        else {
-            self.activityIndicatorView.stopAnimating()
-        }
+        dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
+            if let strongSelf = self {
+                let isLoading = strongSelf.loading
+                let isSaving = strongSelf.saving
+                let isInputSet = (strongSelf.input != nil)
+                strongSelf.photoImageView.hidden = isLoading || !isInputSet
+                strongSelf.openBarButtonItem.enabled = !isLoading && !isSaving
+                strongSelf.saveBarButtonItem.enabled = !isLoading && !isSaving && isInputSet
+                if isLoading || isSaving {
+                    strongSelf.activityIndicatorView.startAnimating()
+                }
+                else {
+                    strongSelf.activityIndicatorView.stopAnimating()
+                }
+            }
+        })
     }
     
     // MARK: - UI Actions
@@ -71,48 +86,118 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     // MARK: - Saving photo
     
     private func savePhoto() {
-        if let image = image {
-            saving = true
-            UIImageWriteToSavedPhotosAlbum(image, self, Selector("image:didFinishSavingWithError:contextInfo:"), nil)
+        if self.input == nil {
+            NSLog("Error: can't save, no input")
+            return
         }
-    }
-    
-    func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafePointer<()>) {
-        dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
-            self?.saving = false
-
-            if let error: NSError = error {
-                NSLog("Error when saving photo: \(error)")
+        let input = self.input!
+        
+        if self.asset == nil {
+            NSLog("Error: can't save, no asset")
+            return
+        }
+        let asset = self.asset!
+        
+        saving = true
+        
+        let output = PHContentEditingOutput(contentEditingInput: input)
+        
+        let adjustmentDataData = NSKeyedArchiver.archivedDataWithRootObject("mustache")
+        output.adjustmentData = PHAdjustmentData(
+            formatIdentifier: "com.elpassion.SwiftMustaches.MustacheAnnotator",
+            formatVersion: "0.1",
+            data: adjustmentDataData)
+        
+        let fullSizeImageUrl = input.fullSizeImageURL
+        let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
+        let fullSizeAnnotatedImage = annotate(image: fullSizeImage)
+        let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
+        
+        var error: NSError?
+        let success = fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite, error: &error)
+        if !success {
+            NSLog("Error when writing file: \(error)")
+            saving = false
+            return
+        }
+        
+        PHPhotoLibrary.sharedPhotoLibrary().performChanges({ [weak self] () -> Void in
+            if self == nil {
+                NSLog("Error: aborting due to VC deallocation")
                 return
             }
             
-            NSLog("Photo saved!")
+            if self!.asset == nil {
+                NSLog("Error: can't perform changes, no asset")
+                self!.saving = false
+                return
+            }
+            let asset = self!.asset
+            
+            let request = PHAssetChangeRequest(forAsset: asset)
+            request.contentEditingOutput = output
+            
+        }, completionHandler: { [weak self] (success, error) -> Void in
+            if !success {
+                NSLog("Error saving changes: \(error)")
+                self?.saving = false
+                return
+            }
+            
+            NSLog("Photo changes performed successfully")
+            self?.saving = false
         })
+    }
+    
+    // MARK: - Annotating
+    
+    private func annotate(#image: UIImage) -> UIImage {
+        let mustacheImage = UIImage(named: "mustache")
+        let mustacheAnnotator = MustacheAnnotator(mustacheImage: mustacheImage)
+        return mustacheAnnotator.annotatedImage(sourceImage: image)
     }
 
     // MARK: - UIImagePickerControllerDelegate
     
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!)  {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            dismissViewControllerAnimated(true, completion: nil)
-            loading = true
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { [weak self] () -> Void in
-                let mustacheImage: UIImage? = UIImage(named: "mustache")
-                if let mustacheImage = mustacheImage {
-                    let mustacheAnnotator = MustacheAnnotator(mustacheImage: mustacheImage)
-                    let mustachedImage = mustacheAnnotator.annotatedImage(sourceImage: image)
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        if let strongSelf = self {
-                            strongSelf.image = mustachedImage
-                            strongSelf.loading = false
-                        }
-                    })
-                }
-            })
+        let assetUrlOptional: NSURL? = info[UIImagePickerControllerReferenceURL] as? NSURL
+        if assetUrlOptional == nil {
+            NSLog("Error: no asset URL")
+            loading = false
+            return
         }
+        let assetUrl = assetUrlOptional!
+        
+        let fetchResult = PHAsset.fetchAssetsWithALAssetURLs([ assetUrl ], options: nil)
+        if fetchResult.firstObject == nil {
+            NSLog("Error: asset not fetched")
+            loading = false
+            return
+        }
+        let asset = fetchResult.firstObject! as PHAsset
+        
+        if !asset.canPerformEditOperation(PHAssetEditOperation.Content) {
+            NSLog("Error: asset can't be edited")
+            loading = false
+            return
+        }
+        
+        dismissViewControllerAnimated(true, completion: nil)
+        
+        asset.requestContentEditingInputWithOptions(nil, completionHandler: { [weak self] (input, info) -> Void in
+            if self == nil {
+                NSLog("Error: aborting due to VC deallocation")
+                return
+            }
+            
+            self!.asset = asset
+            self!.input = input
+            self!.loading = false
+        })
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
         loading = false
     }
     
