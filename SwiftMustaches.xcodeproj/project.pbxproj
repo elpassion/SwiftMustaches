@@ -139,7 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				31ED765819CB0DE0007365DC /* Extensions */,
-				31E6418A19CAE3850041421D /* Annotations */,
+				31E6418A19CAE3850041421D /* Services */,
 				31E6416C19CAD5190041421D /* Delegates */,
 				31E6416D19CAD5320041421D /* Resources */,
 				31E6414A19CAD4C10041421D /* Supporting Files */,
@@ -234,12 +234,12 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		31E6418A19CAE3850041421D /* Annotations */ = {
+		31E6418A19CAE3850041421D /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				31E6418B19CAE3AB0041421D /* MustacheAnnotator.swift */,
 			);
-			path = Annotations;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		31ED765819CB0DE0007365DC /* Extensions */ = {
