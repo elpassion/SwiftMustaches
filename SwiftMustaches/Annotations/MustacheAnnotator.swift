@@ -55,7 +55,6 @@ class MustacheAnnotator {
                 
                 let rotatedMustacheImage = self.mustacheImage.rotatedImage(CGFloat(feature.faceAngle) * CGFloat(3.14) / CGFloat(180.0))
                 rotatedMustacheImage.drawInRect(mustacheRect)
-                NSLog("mustache added")
             }
         }
         
