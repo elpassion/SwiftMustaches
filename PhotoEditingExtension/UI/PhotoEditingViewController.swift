@@ -42,6 +42,11 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
 
     func finishContentEditingWithCompletionHandler(completionHandler: ((PHContentEditingOutput!) -> Void)!) {
         dispatch_async(dispatch_get_global_queue(CLong(DISPATCH_QUEUE_PRIORITY_DEFAULT), 0)) {
+            if self.input == nil {
+                completionHandler(nil)
+                return
+            }
+            
             let output = PHContentEditingOutput(contentEditingInput: self.input)
 
             output.adjustmentData = PHAdjustmentData(formatIdentifier: self.adjustmentDataFormatIdentifier, formatVersion: self.adjustmentDataformatVersion, data: nil)
