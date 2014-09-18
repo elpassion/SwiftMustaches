@@ -14,6 +14,9 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
 
     @IBOutlet weak var photoImageView: UIImageView!
     
+    let adjustmentDataFormatIdentifier = "com.elpassion.SwiftMustaches.MustacheAnnotation"
+    let adjustmentDataformatVersion = "0.1"
+    
     var input: PHContentEditingInput?
 
     override func viewDidLoad() {
@@ -70,6 +73,8 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
             // output.adjustmentData = <#new adjustment data#>
             // let renderedJPEGData = <#output JPEG#>
             // renderedJPEGData.writeToURL(output.renderedContentURL, atomically: true)
+            
+            output.adjustmentData = PHAdjustmentData(formatIdentifier: self.adjustmentDataFormatIdentifier, formatVersion: self.adjustmentDataformatVersion, data: nil)
             
             let mustacheImage = UIImage(named: "mustache")
             let mustacheAnnotation = MustacheAnnotation(mustacheImage: mustacheImage)
