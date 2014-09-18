@@ -98,7 +98,7 @@ class MustacheAnnotation {
                     width: mouthRectSize.width,
                     height: mouthRectSize.height)
                 
-                let rotatedMustacheImage = self.rotatedImage(self.mustacheImage, angle: CGFloat(feature.faceAngle) * CGFloat(3.14) / CGFloat(180.0))
+                let rotatedMustacheImage = self.mustacheImage.rotatedImage(CGFloat(feature.faceAngle) * CGFloat(3.14) / CGFloat(180.0))
                 rotatedMustacheImage.drawInRect(mustacheRect)
             }
         }
@@ -106,30 +106,6 @@ class MustacheAnnotation {
         let annotatedImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return annotatedImage
-    }
-    
-    private func rotatedImage(image: UIImage, angle: CGFloat) -> UIImage {
-        let rotatedViewBox = UIView(frame: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
-        let rotatedViewBoxTransform = CGAffineTransformMakeRotation(angle)
-        rotatedViewBox.transform = rotatedViewBoxTransform
-        let rotatedSize = rotatedViewBox.frame.size
-        
-        UIGraphicsPushContext(UIGraphicsGetCurrentContext())
-        UIGraphicsBeginImageContextWithOptions(rotatedSize, false, image.scale)
-        let context = UIGraphicsGetCurrentContext()!
-        CGContextTranslateCTM(context, rotatedSize.width / 2, rotatedSize.height / 2);
-        CGContextRotateCTM(context, angle)
-        image.drawInRect(CGRect(
-            x: -image.size.width / 2,
-            y: -image.size.height / 2,
-            width: image.size.width,
-            height: image.size.height))
-        
-        let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        UIGraphicsPopContext()
-        
-        return rotatedImage
     }
     
     private class func orientationFromImageOrientation(imageOrientation: UIImageOrientation) -> Int {

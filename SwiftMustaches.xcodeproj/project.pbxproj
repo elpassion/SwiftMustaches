@@ -20,6 +20,8 @@
 		31E6418219CADC100041421D /* PhotoEditingExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 31E6417319CADC100041421D /* PhotoEditingExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		31E6418C19CAE3AB0041421D /* MustacheAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6418B19CAE3AB0041421D /* MustacheAnnotation.swift */; };
 		31E6418D19CAE3AB0041421D /* MustacheAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6418B19CAE3AB0041421D /* MustacheAnnotation.swift */; };
+		31ED765A19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED765919CB0E06007365DC /* UIImage+RotatedImage.swift */; };
+		31ED765B19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED765919CB0E06007365DC /* UIImage+RotatedImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,7 @@
 		31E6417C19CADC100041421D /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
 		31E6417E19CADC100041421D /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		31E6418B19CAE3AB0041421D /* MustacheAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MustacheAnnotation.swift; sourceTree = "<group>"; };
+		31ED765919CB0E06007365DC /* UIImage+RotatedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+RotatedImage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +134,7 @@
 		31E6414919CAD4C10041421D /* SwiftMustaches */ = {
 			isa = PBXGroup;
 			children = (
+				31ED765819CB0DE0007365DC /* Extensions */,
 				31E6418A19CAE3850041421D /* Annotations */,
 				31E6416C19CAD5190041421D /* Delegates */,
 				31E6416D19CAD5320041421D /* Resources */,
@@ -232,6 +236,14 @@
 				31E6418B19CAE3AB0041421D /* MustacheAnnotation.swift */,
 			);
 			path = Annotations;
+			sourceTree = "<group>";
+		};
+		31ED765819CB0DE0007365DC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				31ED765919CB0E06007365DC /* UIImage+RotatedImage.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,6 +381,7 @@
 				31E6414F19CAD4C10041421D /* ViewController.swift in Sources */,
 				31E6418C19CAE3AB0041421D /* MustacheAnnotation.swift in Sources */,
 				31E6414D19CAD4C10041421D /* AppDelegate.swift in Sources */,
+				31ED765A19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +397,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31ED765B19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */,
 				31E6418D19CAE3AB0041421D /* MustacheAnnotation.swift in Sources */,
 				31E6417D19CADC100041421D /* PhotoEditingViewController.swift in Sources */,
 			);
@@ -623,6 +637,7 @@
 				31E6418619CADC110041421D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
