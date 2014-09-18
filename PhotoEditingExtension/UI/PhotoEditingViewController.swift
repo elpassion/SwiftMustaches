@@ -75,7 +75,8 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
             let mustacheAnnotation = MustacheAnnotation(mustacheImage: mustacheImage)
             
             let fullSizeImageUrl = self.input!.fullSizeImageURL
-            let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl)
+            let fullSizeImageData = NSData(contentsOfURL: fullSizeImageUrl)
+            let fullSizeImage = UIImage(data: fullSizeImageData)
             let fullSizeAnnotatedImage = mustacheAnnotation.annotatedImage(sourceImage: fullSizeImage)
             let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
             
