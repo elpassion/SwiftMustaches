@@ -12,6 +12,11 @@ class MustacheAnnotator {
     
     let mustacheImage: UIImage
     
+    struct MustachePosition {
+        let rect: CGRect
+        let angle: CGFloat
+    }
+    
     init(mustacheImage: UIImage) {
         self.mustacheImage = mustacheImage
     }
@@ -41,21 +46,12 @@ class MustacheAnnotator {
                 CIDetectorSmile: false
             ])
         
-        for feature in features as [CIFaceFeature] {
-            if feature.hasMouthPosition {
-                var faceRect = feature.bounds
-                let mouthRectSize = CGSize(
-                    width: faceRect.width / 1.5,
-                    height: faceRect.height / 5)
-                let mustacheRect = CGRect(
-                    x: feature.mouthPosition.x - (mouthRectSize.width / 2),
-                    y: sourceImage.size.height - feature.mouthPosition.y - mouthRectSize.height,
-                    width: mouthRectSize.width,
-                    height: mouthRectSize.height)
-                
-                let rotatedMustacheImage = self.mustacheImage.rotatedImage(CGFloat(feature.faceAngle) * CGFloat(3.14) / CGFloat(180.0))
-                rotatedMustacheImage.drawInRect(mustacheRect)
+        for faceFeature in features as [CIFaceFeature] {
+            if let mustachePosition = self.dynamicType.mustachePosition(imageSize: sourceImage.size, faceFeature: faceFeature) {
+                let mustacheImage = self.mustacheImage.rotatedImage(mustachePosition.angle)
+                mustacheImage.drawInRect(mustachePosition.rect)
             }
+            
         }
         
         let annotatedImage = UIGraphicsGetImageFromCurrentImageContext()!
@@ -63,4 +59,29 @@ class MustacheAnnotator {
         return annotatedImage
     }
     
+    class func mustachePosition(#imageSize: CGSize, faceFeature: CIFaceFeature) -> MustachePosition? {
+        if !faceFeature.hasMouthPosition { return nil }
+        if !faceFeature.hasFaceAngle { return nil }
+        
+        let mustacheSize = CGSize(
+            width: faceFeature.bounds.width / 1.5,
+            height: faceFeature.bounds.height / 5)
+        
+        let mustacheRect = CGRect(
+            x: faceFeature.mouthPosition.x - (mustacheSize.width / 2),
+            y: imageSize.height - faceFeature.mouthPosition.y - mustacheSize.height,
+            width: mustacheSize.width,
+            height: mustacheSize.height)
+        
+        let mustacheAngle = CGFloat(faceFeature.faceAngle) * CGFloat(3.14) / CGFloat(180.0)
+        
+        return MustachePosition(rect: mustacheRect, angle: mustacheAngle)
+    }
+    
 }
+
+
+
+
+
+
