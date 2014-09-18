@@ -64,10 +64,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { [weak self] () -> Void in
                 let mustacheImage: UIImage? = UIImage(named: "mustache")
                 if let mustacheImage = mustacheImage {
-                    let annotation = MustacheAnnotation(mustacheImage: mustacheImage)
+                    let mustacheAnnotator = MustacheAnnotator(mustacheImage: mustacheImage)
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         if let strongSelf = self {
-                            strongSelf.image = annotation.annotatedImage(sourceImage: image)
+                            strongSelf.image = mustacheAnnotator.annotatedImage(sourceImage: image)
                             strongSelf.loading = false
                         }
                     })

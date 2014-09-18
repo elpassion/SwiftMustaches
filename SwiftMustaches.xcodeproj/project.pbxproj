@@ -18,8 +18,8 @@
 		31E6417D19CADC100041421D /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6417C19CADC100041421D /* PhotoEditingViewController.swift */; };
 		31E6417F19CADC100041421D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E6417E19CADC100041421D /* MainInterface.storyboard */; };
 		31E6418219CADC100041421D /* PhotoEditingExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 31E6417319CADC100041421D /* PhotoEditingExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		31E6418C19CAE3AB0041421D /* MustacheAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6418B19CAE3AB0041421D /* MustacheAnnotation.swift */; };
-		31E6418D19CAE3AB0041421D /* MustacheAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6418B19CAE3AB0041421D /* MustacheAnnotation.swift */; };
+		31E6418C19CAE3AB0041421D /* MustacheAnnotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6418B19CAE3AB0041421D /* MustacheAnnotator.swift */; };
+		31E6418D19CAE3AB0041421D /* MustacheAnnotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6418B19CAE3AB0041421D /* MustacheAnnotator.swift */; };
 		31ED765A19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED765919CB0E06007365DC /* UIImage+RotatedImage.swift */; };
 		31ED765B19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED765919CB0E06007365DC /* UIImage+RotatedImage.swift */; };
 		31ED765D19CB10E4007365DC /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED765C19CB10E4007365DC /* UIImage+ImageOrientation.swift */; };
@@ -69,7 +69,7 @@
 		31E6414719CAD4C10041421D /* SwiftMustaches.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMustaches.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E6414B19CAD4C10041421D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31E6414C19CAD4C10041421D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		31E6414E19CAD4C10041421D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		31E6414E19CAD4C10041421D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		31E6415119CAD4C10041421D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		31E6415319CAD4C10041421D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		31E6415619CAD4C10041421D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -80,9 +80,9 @@
 		31E6417519CADC100041421D /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		31E6417719CADC100041421D /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		31E6417B19CADC100041421D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		31E6417C19CADC100041421D /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEditingViewController.swift; sourceTree = "<group>"; };
+		31E6417C19CADC100041421D /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PhotoEditingViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		31E6417E19CADC100041421D /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
-		31E6418B19CAE3AB0041421D /* MustacheAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MustacheAnnotation.swift; sourceTree = "<group>"; };
+		31E6418B19CAE3AB0041421D /* MustacheAnnotator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MustacheAnnotator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		31ED765919CB0E06007365DC /* UIImage+RotatedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+RotatedImage.swift"; sourceTree = "<group>"; };
 		31ED765C19CB10E4007365DC /* UIImage+ImageOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageOrientation.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -237,7 +237,7 @@
 		31E6418A19CAE3850041421D /* Annotations */ = {
 			isa = PBXGroup;
 			children = (
-				31E6418B19CAE3AB0041421D /* MustacheAnnotation.swift */,
+				31E6418B19CAE3AB0041421D /* MustacheAnnotator.swift */,
 			);
 			path = Annotations;
 			sourceTree = "<group>";
@@ -386,7 +386,7 @@
 			files = (
 				31E6414F19CAD4C10041421D /* ViewController.swift in Sources */,
 				31ED765D19CB10E4007365DC /* UIImage+ImageOrientation.swift in Sources */,
-				31E6418C19CAE3AB0041421D /* MustacheAnnotation.swift in Sources */,
+				31E6418C19CAE3AB0041421D /* MustacheAnnotator.swift in Sources */,
 				31E6414D19CAD4C10041421D /* AppDelegate.swift in Sources */,
 				31ED765A19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */,
 			);
@@ -406,7 +406,7 @@
 			files = (
 				31ED765E19CB10E4007365DC /* UIImage+ImageOrientation.swift in Sources */,
 				31ED765B19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */,
-				31E6418D19CAE3AB0041421D /* MustacheAnnotation.swift in Sources */,
+				31E6418D19CAE3AB0041421D /* MustacheAnnotator.swift in Sources */,
 				31E6417D19CADC100041421D /* PhotoEditingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

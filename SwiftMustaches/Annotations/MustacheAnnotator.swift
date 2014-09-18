@@ -1,5 +1,5 @@
 //
-//  MustacheAnnotation.swift
+//  MustacheAnnotator.swift
 //  SwiftMustaches
 //
 //  Created by Dariusz Rybicki on 18/09/14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MustacheAnnotation {
+class MustacheAnnotator {
     
     let mustacheImage: UIImage
     

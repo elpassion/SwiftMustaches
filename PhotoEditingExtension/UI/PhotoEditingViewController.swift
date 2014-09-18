@@ -15,7 +15,7 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var photoImageView: UIImageView!
     
-    let adjustmentDataFormatIdentifier = "com.elpassion.SwiftMustaches.MustacheAnnotation"
+    let adjustmentDataFormatIdentifier = "com.elpassion.SwiftMustaches.MustacheAnnotator"
     let adjustmentDataformatVersion = "0.1"
     
     var input: PHContentEditingInput?
@@ -90,8 +90,8 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
     
     private func annotate(#image: UIImage) -> UIImage {
         let mustacheImage = UIImage(named: "mustache")
-        let mustacheAnnotation = MustacheAnnotation(mustacheImage: mustacheImage)
-        return mustacheAnnotation.annotatedImage(sourceImage: image)
+        let mustacheAnnotator = MustacheAnnotator(mustacheImage: mustacheImage)
+        return mustacheAnnotator.annotatedImage(sourceImage: image)
     }
     
     private func setupBackgroundEffect() {
