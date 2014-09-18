@@ -37,13 +37,7 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
             return
         }
         
-        let mustacheImage = UIImage(named: "mustache")
-        let mustacheAnnotation = MustacheAnnotation(mustacheImage: mustacheImage)
-        
-        let displaySizeImage = input.displaySizeImage
-        let displaySizeAnnotatedImage = mustacheAnnotation.annotatedImage(sourceImage: displaySizeImage)
-        
-        photoImageView.image = displaySizeAnnotatedImage
+        photoImageView.image = annotate(image: input.displaySizeImage)
     }
 
     func finishContentEditingWithCompletionHandler(completionHandler: ((PHContentEditingOutput!) -> Void)!) {
@@ -52,12 +46,9 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
 
             output.adjustmentData = PHAdjustmentData(formatIdentifier: self.adjustmentDataFormatIdentifier, formatVersion: self.adjustmentDataformatVersion, data: nil)
             
-            let mustacheImage = UIImage(named: "mustache")
-            let mustacheAnnotation = MustacheAnnotation(mustacheImage: mustacheImage)
-            
             let fullSizeImageUrl = self.input!.fullSizeImageURL
             let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
-            let fullSizeAnnotatedImage = mustacheAnnotation.annotatedImage(sourceImage: fullSizeImage)
+            let fullSizeAnnotatedImage = self.annotate(image: fullSizeImage)
             let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
             
             var error: NSError?
@@ -77,5 +68,13 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
     }
 
     func cancelContentEditing() {}
+    
+    // MARK: -
+    
+    private func annotate(#image: UIImage) -> UIImage {
+        let mustacheImage = UIImage(named: "mustache")
+        let mustacheAnnotation = MustacheAnnotation(mustacheImage: mustacheImage)
+        return mustacheAnnotation.annotatedImage(sourceImage: image)
+    }
 
 }
