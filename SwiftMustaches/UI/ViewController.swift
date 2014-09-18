@@ -65,9 +65,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 let mustacheImage: UIImage? = UIImage(named: "mustache")
                 if let mustacheImage = mustacheImage {
                     let mustacheAnnotator = MustacheAnnotator(mustacheImage: mustacheImage)
+                    let mustachedImage = mustacheAnnotator.annotatedImage(sourceImage: image)
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         if let strongSelf = self {
-                            strongSelf.image = mustacheAnnotator.annotatedImage(sourceImage: image)
+                            strongSelf.image = mustachedImage
                             strongSelf.loading = false
                         }
                     })
