@@ -36,7 +36,7 @@ class MustacheAnnotation {
                 CIDetectorSmile: false
             ])
         
-        UIGraphicsBeginImageContext(sourceImage.size)
+        UIGraphicsBeginImageContextWithOptions(sourceImage.size, true, sourceImage.scale)
         let context = UIGraphicsGetCurrentContext()!
         sourceImage.drawAtPoint(CGPointZero)
         
@@ -114,7 +114,8 @@ class MustacheAnnotation {
         rotatedViewBox.transform = rotatedViewBoxTransform
         let rotatedSize = rotatedViewBox.frame.size
         
-        UIGraphicsBeginImageContext(rotatedSize)
+        UIGraphicsPushContext(UIGraphicsGetCurrentContext())
+        UIGraphicsBeginImageContextWithOptions(rotatedSize, false, image.scale)
         let context = UIGraphicsGetCurrentContext()!
         CGContextTranslateCTM(context, rotatedSize.width / 2, rotatedSize.height / 2);
         CGContextRotateCTM(context, angle)
@@ -126,6 +127,7 @@ class MustacheAnnotation {
         
         let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
+        UIGraphicsPopContext()
         
         return rotatedImage
     }
