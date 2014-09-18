@@ -31,7 +31,7 @@ class MustacheAnnotation {
             ciImage,
             options:
             [
-                CIDetectorImageOrientation: self.dynamicType.orientationFromImageOrientation(sourceImage.imageOrientation),
+                CIDetectorImageOrientation: sourceImage.orientationPropertyValueFromImageOrientation(),
                 CIDetectorEyeBlink: false,
                 CIDetectorSmile: false
             ])
@@ -106,29 +106,6 @@ class MustacheAnnotation {
         let annotatedImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return annotatedImage
-    }
-    
-    private class func orientationFromImageOrientation(imageOrientation: UIImageOrientation) -> Int {
-        var orientation: Int = 0
-        switch imageOrientation {
-            case .Up:
-                orientation = 1
-            case .Down:
-                orientation = 3
-            case .Left:
-                orientation = 8
-            case .Right:
-                orientation = 6
-            case .UpMirrored:
-                orientation = 2
-            case .DownMirrored:
-                orientation = 4
-            case .LeftMirrored:
-                orientation = 5
-            case .RightMirrored:
-                orientation = 7
-        }
-        return orientation
     }
     
 }
