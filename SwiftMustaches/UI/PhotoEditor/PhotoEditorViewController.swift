@@ -18,12 +18,18 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var openBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var revertBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var activityIndicatorContainerView: UIView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var input: PHContentEditingInput? {
         didSet {
             if let input = input {
-                photoImageView.image = annotate(image: input.displaySizeImage)
+                if input.adjustmentData != nil {
+                    photoImageView.image = annotate(image: input.displaySizeImage)
+                }
+                else {
+                    photoImageView.image = input.displaySizeImage
+                }
             }
             else {
                 photoImageView.image = nil
@@ -55,6 +61,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        activityIndicatorContainerView.layer.cornerRadius = 10
         updateUI()
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
     }
@@ -70,6 +77,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
                 strongSelf.openBarButtonItem.enabled = !isLoading && !isSaving
                 strongSelf.saveBarButtonItem.enabled = !isLoading && !isSaving && isInputSet && !isInputModified
                 strongSelf.revertBarButtonItem.enabled = !isLoading && !isSaving && isInputModified
+                strongSelf.activityIndicatorContainerView.hidden = !isLoading && !isSaving
                 if isLoading || isSaving {
                     strongSelf.activityIndicatorView.startAnimating()
                 }
