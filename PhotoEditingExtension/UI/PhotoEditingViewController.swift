@@ -42,7 +42,9 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
         }
         
         backgroundImageView.image = placeholderImage
-        photoImageView.image = annotate(image: input.displaySizeImage)
+        let fullSizeImageUrl = input.fullSizeImageURL
+        let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
+        photoImageView.image = annotate(image: fullSizeImage)
     }
 
     func finishContentEditingWithCompletionHandler(completionHandler: ((PHContentEditingOutput!) -> Void)!) {

@@ -22,7 +22,10 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         didSet {
             if let input = input {
                 if input.adjustmentData != nil {
-                    photoImageView.image = annotate(image: input.displaySizeImage)
+                    let fullSizeImageUrl = input.fullSizeImageURL
+                    let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
+                    let annotatedImage = annotate(image: fullSizeImage)
+                    photoImageView.image = annotatedImage
                 }
                 else {
                     photoImageView.image = input.displaySizeImage
