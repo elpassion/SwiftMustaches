@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D8A6D4119CC56BE00DF82BC /* MustacheAdjustmentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8A6D4019CC56BE00DF82BC /* MustacheAdjustmentData.swift */; };
+		1D8A6D4219CC56BE00DF82BC /* MustacheAdjustmentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8A6D4019CC56BE00DF82BC /* MustacheAdjustmentData.swift */; };
 		31AE5EB119CB7E9400364087 /* PhotoEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AE5EB019CB7E9400364087 /* PhotoEditorViewController.swift */; };
 		31AE5EB319CB7ECA00364087 /* PhotoEditor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31AE5EB219CB7ECA00364087 /* PhotoEditor.storyboard */; };
 		31E6414D19CAD4C10041421D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6414C19CAD4C10041421D /* AppDelegate.swift */; };
@@ -66,6 +68,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1D8A6D4019CC56BE00DF82BC /* MustacheAdjustmentData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MustacheAdjustmentData.swift; sourceTree = "<group>"; };
 		31AE5EB019CB7E9400364087 /* PhotoEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEditorViewController.swift; sourceTree = "<group>"; };
 		31AE5EB219CB7ECA00364087 /* PhotoEditor.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoEditor.storyboard; sourceTree = "<group>"; };
 		31E6414719CAD4C10041421D /* SwiftMustaches.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMustaches.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +117,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D8A6D3F19CC569000DF82BC /* Structures */ = {
+			isa = PBXGroup;
+			children = (
+				1D8A6D4019CC56BE00DF82BC /* MustacheAdjustmentData.swift */,
+			);
+			path = Structures;
+			sourceTree = "<group>";
+		};
 		31AE5EB419CB7ED000364087 /* PhotoEditor */ = {
 			isa = PBXGroup;
 			children = (
@@ -147,10 +158,11 @@
 		31E6414919CAD4C10041421D /* SwiftMustaches */ = {
 			isa = PBXGroup;
 			children = (
-				31ED765819CB0DE0007365DC /* Extensions */,
-				31E6418A19CAE3850041421D /* Services */,
 				31E6416C19CAD5190041421D /* Delegates */,
+				31ED765819CB0DE0007365DC /* Extensions */,
 				31E6416D19CAD5320041421D /* Resources */,
+				31E6418A19CAE3850041421D /* Services */,
+				1D8A6D3F19CC569000DF82BC /* Structures */,
 				31E6414A19CAD4C10041421D /* Supporting Files */,
 				31E6416E19CAD5600041421D /* UI */,
 			);
@@ -396,6 +408,7 @@
 				31AE5EB119CB7E9400364087 /* PhotoEditorViewController.swift in Sources */,
 				31E6418C19CAE3AB0041421D /* MustacheAnnotator.swift in Sources */,
 				31E6414D19CAD4C10041421D /* AppDelegate.swift in Sources */,
+				1D8A6D4119CC56BE00DF82BC /* MustacheAdjustmentData.swift in Sources */,
 				31ED765A19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,6 +426,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31ED765E19CB10E4007365DC /* UIImage+ImageOrientation.swift in Sources */,
+				1D8A6D4219CC56BE00DF82BC /* MustacheAdjustmentData.swift in Sources */,
 				31ED765B19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */,
 				31E6418D19CAE3AB0041421D /* MustacheAnnotator.swift in Sources */,
 				31E6417D19CADC100041421D /* PhotoEditingViewController.swift in Sources */,
