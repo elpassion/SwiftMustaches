@@ -11,6 +11,9 @@ import Photos
 
 class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    let adjustmentDataFormatIdentifier = "com.elpassion.SwiftMustaches.MustacheAnnotator"
+    let adjustmentDataformatVersion = "0.1"
+    
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var openBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
@@ -104,8 +107,8 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         
         let adjustmentDataData = NSKeyedArchiver.archivedDataWithRootObject("mustache")
         output.adjustmentData = PHAdjustmentData(
-            formatIdentifier: "com.elpassion.SwiftMustaches.MustacheAnnotator",
-            formatVersion: "0.1",
+            formatIdentifier: adjustmentDataFormatIdentifier,
+            formatVersion: adjustmentDataformatVersion,
             data: adjustmentDataData)
         
         let fullSizeImageUrl = input.fullSizeImageURL
@@ -184,7 +187,12 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         
         dismissViewControllerAnimated(true, completion: nil)
         
-        asset.requestContentEditingInputWithOptions(nil, completionHandler: { [weak self] (input, info) -> Void in
+        let options = PHContentEditingInputRequestOptions()
+        options.canHandleAdjustmentData = { (adjustmentData) -> Bool in
+            return adjustmentData.formatIdentifier == self.adjustmentDataFormatIdentifier && adjustmentData.formatVersion == self.adjustmentDataformatVersion
+        }
+        
+        asset.requestContentEditingInputWithOptions(options, completionHandler: { [weak self] (input, info) -> Void in
             if self == nil {
                 NSLog("Error: aborting due to VC deallocation")
                 return
