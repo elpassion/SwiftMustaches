@@ -17,6 +17,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var openBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var revertBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     var input: PHContentEditingInput? {
@@ -47,15 +48,23 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - UI
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        updateUI()
+    }
+    
     private func updateUI() {
         dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
             if let strongSelf = self {
                 let isLoading = strongSelf.loading
                 let isSaving = strongSelf.saving
                 let isInputSet = (strongSelf.input != nil)
+                let isInputModified = (strongSelf.input?.adjustmentData != nil)
                 strongSelf.photoImageView.hidden = isLoading || !isInputSet
                 strongSelf.openBarButtonItem.enabled = !isLoading && !isSaving
-                strongSelf.saveBarButtonItem.enabled = !isLoading && !isSaving && isInputSet
+                strongSelf.saveBarButtonItem.enabled = !isLoading && !isSaving && isInputSet && !isInputModified
+                strongSelf.revertBarButtonItem.enabled = !isLoading && !isSaving && isInputModified
                 if isLoading || isSaving {
                     strongSelf.activityIndicatorView.startAnimating()
                 }
@@ -74,6 +83,10 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     
     @IBAction func saveBarButtonItemAction(sender: UIBarButtonItem) {
         savePhoto()
+    }
+    
+    @IBAction func revertBarButtonItemAction(sender: UIBarButtonItem) {
+        revertModifications()
     }
     
     // MARK: - Opening photo
@@ -131,7 +144,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             }
             
             if self!.asset == nil {
-                NSLog("Error: can't perform changes, no asset")
+                NSLog("Error: can't perform modifications, no asset")
                 self!.saving = false
                 return
             }
@@ -142,22 +155,104 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             
         }, completionHandler: { [weak self] (success, error) -> Void in
             if !success {
-                NSLog("Error saving changes: \(error)")
+                NSLog("Error saving modifications: \(error)")
                 self?.saving = false
                 return
             }
             
-            NSLog("Photo changes performed successfully")
+            NSLog("Photo modifications performed successfully")
             self?.saving = false
+            
+            if let asset = self?.asset {
+                self?.loading = true
+                self?.loadAsset(asset, completion: { () -> Void in
+                    self?.loading = false
+                    return
+                })
+            }
         })
     }
     
-    // MARK: - Annotating
+    // MARK: - Reverting modifications
+    
+    private func revertModifications() {
+        if self.input == nil {
+            NSLog("Error: can't revert, no input")
+            return
+        }
+        let input = self.input!
+        
+        if self.asset == nil {
+            NSLog("Error: can't revert, no asset")
+            return
+        }
+        let asset = self.asset!
+        
+        saving = true
+        
+        PHPhotoLibrary.sharedPhotoLibrary().performChanges({ [weak self] () -> Void in
+            if self == nil {
+                NSLog("Error: aborting due to VC deallocation")
+                return
+            }
+            
+            if self!.asset == nil {
+                NSLog("Error: can't perform revert, no asset")
+                self!.saving = false
+                return
+            }
+            let asset = self!.asset
+            
+            let request = PHAssetChangeRequest(forAsset: asset)
+            request.revertAssetContentToOriginal()
+            
+        }, completionHandler: { [weak self] (success, error) -> Void in
+            if !success {
+                NSLog("Error reverting modifications: \(error)")
+                self?.saving = false
+                return
+            }
+            
+            NSLog("Photo modifications reverted successfully")
+            self?.saving = false
+            
+            if let asset = self?.asset {
+                self?.loading = true
+                self?.loadAsset(asset, completion: { () -> Void in
+                    self?.loading = false
+                    return
+                })
+            }
+        })
+    }
+    
+    // MARK: - Helper methods
     
     private func annotate(#image: UIImage) -> UIImage {
         let mustacheImage = UIImage(named: "mustache")
         let mustacheAnnotator = MustacheAnnotator(mustacheImage: mustacheImage)
         return mustacheAnnotator.annotatedImage(sourceImage: image)
+    }
+    
+    private func loadAsset(asset: PHAsset, completion: (() -> Void)?) {
+        let options = PHContentEditingInputRequestOptions()
+        options.canHandleAdjustmentData = { (adjustmentData) -> Bool in
+            return adjustmentData.formatIdentifier == self.adjustmentDataFormatIdentifier && adjustmentData.formatVersion == self.adjustmentDataformatVersion
+        }
+        
+        asset.requestContentEditingInputWithOptions(options, completionHandler: { [weak self] (input, info) -> Void in
+            if self == nil {
+                NSLog("Error: aborting due to VC deallocation")
+                return
+            }
+            
+            self!.asset = asset
+            self!.input = input
+            
+            if let completion = completion {
+                completion()
+            }
+        })
     }
 
     // MARK: - UIImagePickerControllerDelegate
@@ -187,20 +282,9 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         
         dismissViewControllerAnimated(true, completion: nil)
         
-        let options = PHContentEditingInputRequestOptions()
-        options.canHandleAdjustmentData = { (adjustmentData) -> Bool in
-            return adjustmentData.formatIdentifier == self.adjustmentDataFormatIdentifier && adjustmentData.formatVersion == self.adjustmentDataformatVersion
-        }
-        
-        asset.requestContentEditingInputWithOptions(options, completionHandler: { [weak self] (input, info) -> Void in
-            if self == nil {
-                NSLog("Error: aborting due to VC deallocation")
-                return
-            }
-            
-            self!.asset = asset
-            self!.input = input
-            self!.loading = false
+        loadAsset(asset, completion: { [weak self] () -> Void in
+            self?.loading = false
+            return
         })
     }
     

@@ -29,6 +29,11 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="zmc-ph-DIR"/>
+                                    <barButtonItem title="Revert" id="eXn-9I-GkS">
+                                        <connections>
+                                            <action selector="revertBarButtonItemAction:" destination="WFd-ZH-2tw" id="dek-QH-xrm"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem title="Save" id="DkG-Wy-KMG">
                                         <connections>
                                             <action selector="saveBarButtonItemAction:" destination="WFd-ZH-2tw" id="7gW-cA-4cH"/>
@@ -61,6 +66,7 @@
                         <outlet property="activityIndicatorView" destination="uc6-Ti-D55" id="ga4-UX-kmn"/>
                         <outlet property="openBarButtonItem" destination="Zv3-Ol-wK5" id="xK5-Mz-EZp"/>
                         <outlet property="photoImageView" destination="vMp-6a-Gs6" id="gBO-Ks-UIj"/>
+                        <outlet property="revertBarButtonItem" destination="eXn-9I-GkS" id="ev3-tb-rtl"/>
                         <outlet property="saveBarButtonItem" destination="DkG-Wy-KMG" id="5oh-Dz-3SK"/>
                     </connections>
                 </viewController>
