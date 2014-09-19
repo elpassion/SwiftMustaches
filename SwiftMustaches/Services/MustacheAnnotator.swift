@@ -83,7 +83,7 @@ class MustacheAnnotator {
             height: mustacheSize.height)
         
         var mustacheAngle: CGFloat
-        if !faceFeature.hasFaceAngle {
+        if faceFeature.hasFaceAngle {
             mustacheAngle = CGFloat(faceFeature.faceAngle) * CGFloat(3.14) / CGFloat(180.0)
         }
         else {
