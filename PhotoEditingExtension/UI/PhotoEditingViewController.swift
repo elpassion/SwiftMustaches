@@ -15,9 +15,6 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var photoImageView: UIImageView!
     
-    let adjustmentDataFormatIdentifier = "com.elpassion.SwiftMustaches.MustacheAnnotator"
-    let adjustmentDataformatVersion = "0.1"
-    
     var input: PHContentEditingInput?
     
     override func viewDidLoad() {
@@ -29,7 +26,7 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
     // MARK: - PHContentEditingController
 
     func canHandleAdjustmentData(adjustmentData: PHAdjustmentData?) -> Bool {
-        return adjustmentData?.formatIdentifier == self.adjustmentDataFormatIdentifier && adjustmentData?.formatVersion == self.adjustmentDataformatVersion
+        return adjustmentData?.formatIdentifier == MustacheAdjustmentData.adjustmentDataFormatIdentifier() && adjustmentData?.formatVersion == MustacheAdjustmentData.adjustmentDataformatVersion()
     }
 
     func startContentEditingWithInput(contentEditingInput: PHContentEditingInput?, placeholderImage: UIImage) {
@@ -59,8 +56,8 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
 
             let adjustmentDataData = NSKeyedArchiver.archivedDataWithRootObject("mustache")
             output.adjustmentData = PHAdjustmentData(
-                formatIdentifier: self.adjustmentDataFormatIdentifier,
-                formatVersion: self.adjustmentDataformatVersion,
+                formatIdentifier: MustacheAdjustmentData.adjustmentDataFormatIdentifier(),
+                formatVersion: MustacheAdjustmentData.adjustmentDataformatVersion(),
                 data: adjustmentDataData)
             
             let fullSizeImageUrl = self.input!.fullSizeImageURL

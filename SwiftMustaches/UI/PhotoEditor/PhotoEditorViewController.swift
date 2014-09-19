@@ -11,9 +11,6 @@ import Photos
 
 class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver {
     
-    let adjustmentDataFormatIdentifier = "com.elpassion.SwiftMustaches.MustacheAnnotator"
-    let adjustmentDataformatVersion = "0.1"
-    
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var openBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
@@ -127,7 +124,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         
         let options = PHContentEditingInputRequestOptions()
         options.canHandleAdjustmentData = { (adjustmentData) -> Bool in
-            return adjustmentData.formatIdentifier == self.adjustmentDataFormatIdentifier && adjustmentData.formatVersion == self.adjustmentDataformatVersion
+            return adjustmentData.formatIdentifier == MustacheAdjustmentData.adjustmentDataFormatIdentifier() && adjustmentData.formatVersion == MustacheAdjustmentData.adjustmentDataformatVersion()
         }
         
         asset.requestContentEditingInputWithOptions(options, completionHandler: { [weak self] (input, info) -> Void in
@@ -173,8 +170,8 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         
         let adjustmentDataData = NSKeyedArchiver.archivedDataWithRootObject("mustache")
         output.adjustmentData = PHAdjustmentData(
-            formatIdentifier: adjustmentDataFormatIdentifier,
-            formatVersion: adjustmentDataformatVersion,
+            formatIdentifier: MustacheAdjustmentData.adjustmentDataFormatIdentifier(),
+            formatVersion: MustacheAdjustmentData.adjustmentDataformatVersion(),
             data: adjustmentDataData)
         
         let fullSizeImageUrl = input.fullSizeImageURL
