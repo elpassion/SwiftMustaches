@@ -64,7 +64,6 @@ class MustacheAnnotator {
     
     class func mustachePosition(#imageSize: CGSize, faceFeature: CIFaceFeature) -> MustachePosition? {
         if !faceFeature.hasMouthPosition { return nil }
-        if !faceFeature.hasFaceAngle { return nil }
         
         let mustacheSize = CGSize(
             width: faceFeature.bounds.width / 1.5,
@@ -76,7 +75,14 @@ class MustacheAnnotator {
             width: mustacheSize.width,
             height: mustacheSize.height)
         
-        let mustacheAngle = CGFloat(faceFeature.faceAngle) * CGFloat(3.14) / CGFloat(180.0)
+        var mustacheAngle: CGFloat
+        if !faceFeature.hasFaceAngle {
+            mustacheAngle = CGFloat(faceFeature.faceAngle) * CGFloat(3.14) / CGFloat(180.0)
+        }
+        else {
+            mustacheAngle = CGFloat(0)
+            NSLog("Mustache angle not found, using \(mustacheAngle)")
+        }
         
         return MustachePosition(rect: mustacheRect, angle: mustacheAngle)
     }
