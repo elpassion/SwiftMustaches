@@ -88,6 +88,12 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         })
     }
     
+    private func presentErrorAlertView(#message: String) -> Void {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     // MARK: - UI Actions
     
     @IBAction func openBarButtonItemAction(sender: UIBarButtonItem) {
@@ -156,13 +162,13 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     
     private func savePhoto() {
         if self.input == nil {
-            NSLog("Error: can't save, no input")
+            presentErrorAlertView(message: "Can't save, no input")
             return
         }
         let input = self.input!
         
         if self.asset == nil {
-            NSLog("Error: can't save, no asset")
+            presentErrorAlertView(message: "Can't save, no asset")
             return
         }
         let asset = self.asset!
@@ -180,7 +186,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         var error: NSError?
         let success = fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite, error: &error)
         if !success {
-            NSLog("Error when writing file: \(error)")
+            presentErrorAlertView(message: "Error when writing file: \(error?.localizedDescription)")
             saving = false
             return
         }
@@ -192,7 +198,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             }
             
             if self!.asset == nil {
-                NSLog("Error: can't perform modifications, no asset")
+                self!.presentErrorAlertView(message: "Can't perform modifications, no asset")
                 self!.saving = false
                 return
             }
@@ -203,7 +209,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             
         }, completionHandler: { [weak self] (success, error) -> Void in
             if !success {
-                NSLog("Error saving modifications: \(error)")
+                self?.presentErrorAlertView(message: "Error saving modifications: \(error?.localizedDescription)")
                 self?.saving = false
                 return
             }
@@ -217,13 +223,13 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     
     private func revertModifications() {
         if self.input == nil {
-            NSLog("Error: can't revert, no input")
+            presentErrorAlertView(message: "Can't revert, no input")
             return
         }
         let input = self.input!
         
         if self.asset == nil {
-            NSLog("Error: can't revert, no asset")
+            presentErrorAlertView(message: "Can't revert, no asset")
             return
         }
         let asset = self.asset!
@@ -237,7 +243,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             }
             
             if self!.asset == nil {
-                NSLog("Error: can't perform revert, no asset")
+                self!.presentErrorAlertView(message: "Can't perform revert, no asset")
                 self!.saving = false
                 return
             }
@@ -248,7 +254,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             
         }, completionHandler: { [weak self] (success, error) -> Void in
             if !success {
-                NSLog("Error reverting modifications: \(error)")
+                self?.presentErrorAlertView(message: "Error reverting modifications: \(error?.localizedDescription)")
                 self?.saving = false
                 return
             }
