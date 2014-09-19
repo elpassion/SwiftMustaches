@@ -55,12 +55,7 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
             }
             
             let output = PHContentEditingOutput(contentEditingInput: self.input)
-
-            let adjustmentDataData = NSKeyedArchiver.archivedDataWithRootObject("mustache")
-            output.adjustmentData = PHAdjustmentData(
-                formatIdentifier: MustacheAdjustmentData.adjustmentDataFormatIdentifier(),
-                formatVersion: MustacheAdjustmentData.adjustmentDataformatVersion(),
-                data: adjustmentDataData)
+            output.adjustmentData = MustacheAdjustmentData.adjustmentData()
             
             let fullSizeImageUrl = self.input!.fullSizeImageURL
             let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)

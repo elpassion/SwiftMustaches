@@ -170,12 +170,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         saving = true
         
         let output = PHContentEditingOutput(contentEditingInput: input)
-        
-        let adjustmentDataData = NSKeyedArchiver.archivedDataWithRootObject("mustache")
-        output.adjustmentData = PHAdjustmentData(
-            formatIdentifier: MustacheAdjustmentData.adjustmentDataFormatIdentifier(),
-            formatVersion: MustacheAdjustmentData.adjustmentDataformatVersion(),
-            data: adjustmentDataData)
+        output.adjustmentData = MustacheAdjustmentData.adjustmentData()
         
         let fullSizeImageUrl = input.fullSizeImageURL
         let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)

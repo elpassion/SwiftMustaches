@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Photos
 
 class MustacheAdjustmentData {
     
@@ -16,5 +17,14 @@ class MustacheAdjustmentData {
     
     class func adjustmentDataformatVersion() -> String {
         return "0.1"
+    }
+    
+    class func adjustmentData() -> PHAdjustmentData {
+        let adjustmentData = PHAdjustmentData(
+            formatIdentifier: MustacheAdjustmentData.adjustmentDataFormatIdentifier(),
+            formatVersion: MustacheAdjustmentData.adjustmentDataformatVersion(),
+            data: NSKeyedArchiver.archivedDataWithRootObject("mustache"))
+        
+        return adjustmentData
     }
 }
