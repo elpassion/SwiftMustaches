@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver {
     
     let adjustmentDataFormatIdentifier = "com.elpassion.SwiftMustaches.MustacheAnnotator"
     let adjustmentDataformatVersion = "0.1"
@@ -52,6 +52,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         super.viewDidLoad()
         
         updateUI()
+        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
     }
     
     private func updateUI() {
@@ -97,6 +98,46 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         imagePicker.delegate = self
         loading = true
         presentViewController(imagePicker, animated: true, completion: nil)
+    }
+
+    private func loadAsset(asset: PHAsset?, completion: (() -> Void)?) {
+        if asset == nil {
+            self.asset = nil
+            self.input = nil
+
+            if let completion = completion {
+                completion()
+            }
+            
+            return
+        }
+        let asset = asset!
+        
+        let options = PHContentEditingInputRequestOptions()
+        options.canHandleAdjustmentData = { (adjustmentData) -> Bool in
+            return adjustmentData.formatIdentifier == self.adjustmentDataFormatIdentifier && adjustmentData.formatVersion == self.adjustmentDataformatVersion
+        }
+        
+        asset.requestContentEditingInputWithOptions(options, completionHandler: { [weak self] (input, info) -> Void in
+            if self == nil {
+                NSLog("Error: aborting due to VC deallocation")
+                return
+            }
+            
+            if input.adjustmentData == nil {
+                NSLog("Loaded asset WITHOUT adjustment data")
+            }
+            else {
+                NSLog("Loaded asset WITH adjustment data")
+            }
+            
+            self!.asset = asset
+            self!.input = input
+            
+            if let completion = completion {
+                completion()
+            }
+        })
     }
     
     // MARK: - Saving photo
@@ -162,14 +203,6 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             
             NSLog("Photo modifications performed successfully")
             self?.saving = false
-            
-            if let asset = self?.asset {
-                self?.loading = true
-                self?.loadAsset(asset, completion: { () -> Void in
-                    self?.loading = false
-                    return
-                })
-            }
         })
     }
     
@@ -215,14 +248,6 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             
             NSLog("Photo modifications reverted successfully")
             self?.saving = false
-            
-            if let asset = self?.asset {
-                self?.loading = true
-                self?.loadAsset(asset, completion: { () -> Void in
-                    self?.loading = false
-                    return
-                })
-            }
         })
     }
     
@@ -232,27 +257,6 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         let mustacheImage = UIImage(named: "mustache")
         let mustacheAnnotator = MustacheAnnotator(mustacheImage: mustacheImage)
         return mustacheAnnotator.annotatedImage(sourceImage: image)
-    }
-    
-    private func loadAsset(asset: PHAsset, completion: (() -> Void)?) {
-        let options = PHContentEditingInputRequestOptions()
-        options.canHandleAdjustmentData = { (adjustmentData) -> Bool in
-            return adjustmentData.formatIdentifier == self.adjustmentDataFormatIdentifier && adjustmentData.formatVersion == self.adjustmentDataformatVersion
-        }
-        
-        asset.requestContentEditingInputWithOptions(options, completionHandler: { [weak self] (input, info) -> Void in
-            if self == nil {
-                NSLog("Error: aborting due to VC deallocation")
-                return
-            }
-            
-            self!.asset = asset
-            self!.input = input
-            
-            if let completion = completion {
-                completion()
-            }
-        })
     }
 
     // MARK: - UIImagePickerControllerDelegate
@@ -291,6 +295,42 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
         loading = false
+    }
+    
+    // MARK: - PHPhotoLibraryChangeObserver
+    
+    func photoLibraryDidChange(changeInstance: PHChange!) {
+        dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
+            if self?.asset == nil {
+                return
+            }
+            
+            let changeDetailsForAsset = changeInstance.changeDetailsForObject(self!.asset!)
+            if changeDetailsForAsset == nil {
+                return
+            }
+            
+            if changeDetailsForAsset.objectWasDeleted {
+                NSLog("PhotoLibrary: Asset deleted")
+                self?.loading = true
+                self?.loadAsset(nil, completion: { () -> Void in
+                    self?.loading = false
+                    return
+                })
+                return
+            }
+            
+            if changeDetailsForAsset.assetContentChanged {
+                if let assetAfterChanges = changeDetailsForAsset.objectAfterChanges as? PHAsset {
+                    NSLog("PhotoLibrary: Asset changed")
+                    self?.loading = true
+                    self?.loadAsset(assetAfterChanges, completion: { () -> Void in
+                        self?.loading = false
+                        return
+                    })
+                }
+            }
+        })
     }
     
 }
