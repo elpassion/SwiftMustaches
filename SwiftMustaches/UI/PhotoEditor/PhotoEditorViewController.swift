@@ -24,7 +24,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
                 if input.adjustmentData != nil {
                     let fullSizeImageUrl = input.fullSizeImageURL
                     let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
-                    let annotatedImage = annotate(image: fullSizeImage)
+                    let annotatedImage = annotate(image: fullSizeImage).output
                     photoImageView.image = annotatedImage
                 }
                 else {
@@ -180,7 +180,14 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         
         let fullSizeImageUrl = input.fullSizeImageURL
         let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
-        let fullSizeAnnotatedImage = annotate(image: fullSizeImage)
+        let (annotated, fullSizeAnnotatedImage) = annotate(image: fullSizeImage)
+        
+        if !annotated {
+            presentErrorAlertView(message: "Unable to add mustaches")
+            saving = false
+            return
+        }
+        
         let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
         
         var error: NSError?
@@ -266,10 +273,15 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - Helper methods
     
-    private func annotate(#image: UIImage) -> UIImage {
+    private func annotate(#image: UIImage) -> (success: Bool, output: UIImage) {
         let mustacheImage = UIImage(named: "mustache")
         let mustacheAnnotator = MustacheAnnotator(mustacheImage: mustacheImage)
-        return mustacheAnnotator.annotatedImage(sourceImage: image)
+        var error: NSError?
+        let annotatedImage = mustacheAnnotator.annotatedImage(sourceImage: image, error: &error)
+        if let error = error {
+            return (success: false, output: image)
+        }
+        return (success: true, output: annotatedImage)
     }
 
     // MARK: - UIImagePickerControllerDelegate

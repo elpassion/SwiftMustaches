@@ -44,7 +44,15 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
         backgroundImageView.image = placeholderImage
         let fullSizeImageUrl = input.fullSizeImageURL
         let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
-        photoImageView.image = annotate(image: fullSizeImage)
+        let (success, fullSizeAnnotatedImage) = annotate(image: fullSizeImage)
+        
+        if !success {
+            let alertController = UIAlertController(title: "Error", message: "Unable to add mustache", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
+        
+        photoImageView.image = fullSizeAnnotatedImage
     }
 
     func finishContentEditingWithCompletionHandler(completionHandler: ((PHContentEditingOutput!) -> Void)!) {
@@ -59,7 +67,7 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
             
             let fullSizeImageUrl = self.input!.fullSizeImageURL
             let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
-            let fullSizeAnnotatedImage = self.annotate(image: fullSizeImage)
+            let fullSizeAnnotatedImage = self.annotate(image: fullSizeImage).output
             let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
             
             var error: NSError?
@@ -82,10 +90,15 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
     
     // MARK: -
     
-    private func annotate(#image: UIImage) -> UIImage {
+    private func annotate(#image: UIImage) -> (success: Bool, output: UIImage) {
         let mustacheImage = UIImage(named: "mustache")
         let mustacheAnnotator = MustacheAnnotator(mustacheImage: mustacheImage)
-        return mustacheAnnotator.annotatedImage(sourceImage: image)
+        var error: NSError?
+        let annotatedImage = mustacheAnnotator.annotatedImage(sourceImage: image, error: &error)
+        if let error = error {
+            return (success: false, output: image)
+        }
+        return (success: true, output: annotatedImage)
     }
     
     private func setupBackgroundEffect() {

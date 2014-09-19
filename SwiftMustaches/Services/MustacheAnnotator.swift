@@ -21,7 +21,7 @@ class MustacheAnnotator {
         self.mustacheImage = mustacheImage
     }
     
-    func annotatedImage(#sourceImage: UIImage) -> UIImage {
+    func annotatedImage(#sourceImage: UIImage, error: NSErrorPointer?) -> UIImage {
         let detector = CIDetector(
             ofType: CIDetectorTypeFace,
             context: nil,
@@ -46,15 +46,22 @@ class MustacheAnnotator {
                 CIDetectorSmile: false
             ])
         
+        var mustacheAdded = false
+        
         for faceFeature in features as [CIFaceFeature] {
             if let mustachePosition = self.dynamicType.mustachePosition(imageSize: sourceImage.size, faceFeature: faceFeature) {
                 let mustacheImage = self.mustacheImage.rotatedImage(mustachePosition.angle)
                 mustacheImage.drawInRect(mustachePosition.rect)
+                mustacheAdded = true
                 NSLog("Mustache added")
             }
             else {
                 NSLog("Mustache position not found")
             }
+        }
+        
+        if !mustacheAdded {
+            error?.memory = NSError(domain: "", code: 0, userInfo: nil)
         }
         
         let annotatedImage = UIGraphicsGetImageFromCurrentImageContext()!
