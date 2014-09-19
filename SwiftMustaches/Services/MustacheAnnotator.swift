@@ -50,8 +50,11 @@ class MustacheAnnotator {
             if let mustachePosition = self.dynamicType.mustachePosition(imageSize: sourceImage.size, faceFeature: faceFeature) {
                 let mustacheImage = self.mustacheImage.rotatedImage(mustachePosition.angle)
                 mustacheImage.drawInRect(mustachePosition.rect)
+                NSLog("Mustache added")
             }
-            
+            else {
+                NSLog("Mustache position not found")
+            }
         }
         
         let annotatedImage = UIGraphicsGetImageFromCurrentImageContext()!
