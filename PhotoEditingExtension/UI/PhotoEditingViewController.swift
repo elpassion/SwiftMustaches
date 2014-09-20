@@ -16,6 +16,7 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
     @IBOutlet weak var photoImageView: UIImageView!
     
     var input: PHContentEditingInput?
+    var adjustment: MustacheAdjustment?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,7 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
     // MARK: - PHContentEditingController
 
     func canHandleAdjustmentData(adjustmentData: PHAdjustmentData?) -> Bool {
-        return adjustmentData?.formatIdentifier == MustacheAdjustmentData.adjustmentDataFormatIdentifier() && adjustmentData?.formatVersion == MustacheAdjustmentData.adjustmentDataformatVersion()
+        return MustacheAdjustment.canHandleAdjustmentData(adjustmentData)
     }
 
     func startContentEditingWithInput(contentEditingInput: PHContentEditingInput?, placeholderImage: UIImage) {
@@ -42,15 +43,18 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
         }
         
         backgroundImageView.image = placeholderImage
+        
         let fullSizeImageUrl = input.fullSizeImageURL
         let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
-        let (success, fullSizeAnnotatedImage) = annotate(image: fullSizeImage)
         
-        if !success {
-            let alertController = UIAlertController(title: "Error", message: "Unable to add mustache", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alertController, animated: true, completion: nil)
+        if input.adjustmentData != nil {
+            adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
         }
+        else {
+            adjustment = MustacheAdjustment(image: fullSizeImage)
+        }
+        
+        let fullSizeAnnotatedImage = adjustment!.applyAdjustment(fullSizeImage)
         
         photoImageView.image = fullSizeAnnotatedImage
     }
@@ -63,11 +67,11 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
             }
             
             let output = PHContentEditingOutput(contentEditingInput: self.input)
-            output.adjustmentData = MustacheAdjustmentData.adjustmentData()
+            output.adjustmentData = self.adjustment!.adjustmentData()
             
             let fullSizeImageUrl = self.input!.fullSizeImageURL
             let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
-            let fullSizeAnnotatedImage = self.annotate(image: fullSizeImage).output
+            let fullSizeAnnotatedImage = self.adjustment!.applyAdjustment(fullSizeImage)
             let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
             
             var error: NSError?
@@ -89,17 +93,6 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
     func cancelContentEditing() {}
     
     // MARK: -
-    
-    private func annotate(#image: UIImage) -> (success: Bool, output: UIImage) {
-        let mustacheImage = UIImage(named: "mustache")
-        let mustacheAnnotator = MustacheAnnotator(mustacheImage: mustacheImage)
-        var error: NSError?
-        let annotatedImage = mustacheAnnotator.annotatedImage(sourceImage: image, error: &error)
-        if let error = error {
-            return (success: false, output: image)
-        }
-        return (success: true, output: annotatedImage)
-    }
     
     private func setupBackgroundEffect() {
         let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))

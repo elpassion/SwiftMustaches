@@ -21,17 +21,20 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     var input: PHContentEditingInput? {
         didSet {
             if let input = input {
+                let fullSizeImageUrl = input.fullSizeImageURL
+                let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
                 if input.adjustmentData != nil {
-                    let fullSizeImageUrl = input.fullSizeImageURL
-                    let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
-                    let annotatedImage = annotate(image: fullSizeImage).output
+                    adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
+                    let annotatedImage = self.adjustment!.applyAdjustment(fullSizeImage)
                     photoImageView.image = annotatedImage
                 }
                 else {
+                    adjustment = nil
                     photoImageView.image = input.displaySizeImage
                 }
             }
             else {
+                adjustment = nil
                 photoImageView.image = nil
             }
             updateUI()
@@ -51,6 +54,8 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             updateUI()
         }
     }
+    
+    var adjustment: MustacheAdjustment?
     
     // MARK: - UI
     
@@ -122,6 +127,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         if asset == nil {
             self.asset = nil
             self.input = nil
+            self.adjustment = nil
 
             if let completion = completion {
                 completion()
@@ -133,7 +139,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         
         let options = PHContentEditingInputRequestOptions()
         options.canHandleAdjustmentData = { (adjustmentData) -> Bool in
-            return adjustmentData.formatIdentifier == MustacheAdjustmentData.adjustmentDataFormatIdentifier() && adjustmentData.formatVersion == MustacheAdjustmentData.adjustmentDataformatVersion()
+            return MustacheAdjustment.canHandleAdjustmentData(adjustmentData)
         }
         
         asset.requestContentEditingInputWithOptions(options, completionHandler: { [weak self] (input, info) -> Void in
@@ -144,9 +150,11 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             
             if input.adjustmentData == nil {
                 NSLog("Loaded asset WITHOUT adjustment data")
+                self!.adjustment = nil
             }
             else {
                 NSLog("Loaded asset WITH adjustment data")
+                self!.adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
             }
             
             self!.asset = asset
@@ -175,19 +183,18 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         
         saving = true
         
-        let output = PHContentEditingOutput(contentEditingInput: input)
-        output.adjustmentData = MustacheAdjustmentData.adjustmentData()
-        
         let fullSizeImageUrl = input.fullSizeImageURL
         let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
-        let (annotated, fullSizeAnnotatedImage) = annotate(image: fullSizeImage)
         
-        if !annotated {
-            presentErrorAlertView(message: "Unable to add mustaches")
-            saving = false
-            return
+        if adjustment == nil {
+            adjustment = MustacheAdjustment(image: fullSizeImage)
         }
+        let mustacheAdjustment = adjustment!
         
+        let output = PHContentEditingOutput(contentEditingInput: input)
+        output.adjustmentData = mustacheAdjustment.adjustmentData()
+        
+        let fullSizeAnnotatedImage = mustacheAdjustment.applyAdjustment(fullSizeImage)
         let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
         
         var error: NSError?
@@ -269,19 +276,6 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             NSLog("Photo modifications reverted successfully")
             self?.saving = false
         })
-    }
-    
-    // MARK: - Helper methods
-    
-    private func annotate(#image: UIImage) -> (success: Bool, output: UIImage) {
-        let mustacheImage = UIImage(named: "mustache")
-        let mustacheAnnotator = MustacheAnnotator(mustacheImage: mustacheImage)
-        var error: NSError?
-        let annotatedImage = mustacheAnnotator.annotatedImage(sourceImage: image, error: &error)
-        if let error = error {
-            return (success: false, output: image)
-        }
-        return (success: true, output: annotatedImage)
     }
 
     // MARK: - UIImagePickerControllerDelegate

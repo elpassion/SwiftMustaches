@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D8A6D4119CC56BE00DF82BC /* MustacheAdjustmentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8A6D4019CC56BE00DF82BC /* MustacheAdjustmentData.swift */; };
-		1D8A6D4219CC56BE00DF82BC /* MustacheAdjustmentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8A6D4019CC56BE00DF82BC /* MustacheAdjustmentData.swift */; };
+		3174137119CDB6E3005B3225 /* MustachePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3174137019CDB6E3005B3225 /* MustachePosition.swift */; };
+		3174137219CDB6E3005B3225 /* MustachePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3174137019CDB6E3005B3225 /* MustachePosition.swift */; };
 		31AE5EB119CB7E9400364087 /* PhotoEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AE5EB019CB7E9400364087 /* PhotoEditorViewController.swift */; };
 		31AE5EB319CB7ECA00364087 /* PhotoEditor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31AE5EB219CB7ECA00364087 /* PhotoEditor.storyboard */; };
+		31BF3E8619CCDD8C00DED354 /* MustacheAdjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BF3E8519CCDD8C00DED354 /* MustacheAdjustment.swift */; };
+		31BF3E8719CCDD8C00DED354 /* MustacheAdjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BF3E8519CCDD8C00DED354 /* MustacheAdjustment.swift */; };
 		31E6414D19CAD4C10041421D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6414C19CAD4C10041421D /* AppDelegate.swift */; };
 		31E6415419CAD4C10041421D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31E6415319CAD4C10041421D /* Images.xcassets */; };
 		31E6415719CAD4C10041421D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31E6415519CAD4C10041421D /* LaunchScreen.xib */; };
@@ -20,8 +22,6 @@
 		31E6417D19CADC100041421D /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6417C19CADC100041421D /* PhotoEditingViewController.swift */; };
 		31E6417F19CADC100041421D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E6417E19CADC100041421D /* MainInterface.storyboard */; };
 		31E6418219CADC100041421D /* PhotoEditingExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 31E6417319CADC100041421D /* PhotoEditingExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		31E6418C19CAE3AB0041421D /* MustacheAnnotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6418B19CAE3AB0041421D /* MustacheAnnotator.swift */; };
-		31E6418D19CAE3AB0041421D /* MustacheAnnotator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6418B19CAE3AB0041421D /* MustacheAnnotator.swift */; };
 		31ED765A19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED765919CB0E06007365DC /* UIImage+RotatedImage.swift */; };
 		31ED765B19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED765919CB0E06007365DC /* UIImage+RotatedImage.swift */; };
 		31ED765D19CB10E4007365DC /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ED765C19CB10E4007365DC /* UIImage+ImageOrientation.swift */; };
@@ -68,9 +68,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1D8A6D4019CC56BE00DF82BC /* MustacheAdjustmentData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MustacheAdjustmentData.swift; sourceTree = "<group>"; };
+		3174137019CDB6E3005B3225 /* MustachePosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MustachePosition.swift; sourceTree = "<group>"; };
 		31AE5EB019CB7E9400364087 /* PhotoEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEditorViewController.swift; sourceTree = "<group>"; };
 		31AE5EB219CB7ECA00364087 /* PhotoEditor.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoEditor.storyboard; sourceTree = "<group>"; };
+		31BF3E8519CCDD8C00DED354 /* MustacheAdjustment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MustacheAdjustment.swift; sourceTree = "<group>"; };
 		31E6414719CAD4C10041421D /* SwiftMustaches.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftMustaches.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E6414B19CAD4C10041421D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31E6414C19CAD4C10041421D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +86,6 @@
 		31E6417B19CADC100041421D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31E6417C19CADC100041421D /* PhotoEditingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PhotoEditingViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		31E6417E19CADC100041421D /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
-		31E6418B19CAE3AB0041421D /* MustacheAnnotator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MustacheAnnotator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		31ED765919CB0E06007365DC /* UIImage+RotatedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+RotatedImage.swift"; sourceTree = "<group>"; };
 		31ED765C19CB10E4007365DC /* UIImage+ImageOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageOrientation.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,12 +117,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1D8A6D3F19CC569000DF82BC /* Structures */ = {
+		3174136F19CDB6C1005B3225 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1D8A6D4019CC56BE00DF82BC /* MustacheAdjustmentData.swift */,
+				3174137019CDB6E3005B3225 /* MustachePosition.swift */,
 			);
-			path = Structures;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		31AE5EB419CB7ED000364087 /* PhotoEditor */ = {
@@ -132,6 +132,14 @@
 				31AE5EB019CB7E9400364087 /* PhotoEditorViewController.swift */,
 			);
 			path = PhotoEditor;
+			sourceTree = "<group>";
+		};
+		31BF3E8419CCDD5A00DED354 /* Adjustments */ = {
+			isa = PBXGroup;
+			children = (
+				31BF3E8519CCDD8C00DED354 /* MustacheAdjustment.swift */,
+			);
+			path = Adjustments;
 			sourceTree = "<group>";
 		};
 		31E6413E19CAD4C10041421D = {
@@ -158,11 +166,11 @@
 		31E6414919CAD4C10041421D /* SwiftMustaches */ = {
 			isa = PBXGroup;
 			children = (
+				31BF3E8419CCDD5A00DED354 /* Adjustments */,
 				31E6416C19CAD5190041421D /* Delegates */,
 				31ED765819CB0DE0007365DC /* Extensions */,
+				3174136F19CDB6C1005B3225 /* Models */,
 				31E6416D19CAD5320041421D /* Resources */,
-				31E6418A19CAE3850041421D /* Services */,
-				1D8A6D3F19CC569000DF82BC /* Structures */,
 				31E6414A19CAD4C10041421D /* Supporting Files */,
 				31E6416E19CAD5600041421D /* UI */,
 			);
@@ -252,14 +260,6 @@
 				31E6417E19CADC100041421D /* MainInterface.storyboard */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		31E6418A19CAE3850041421D /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				31E6418B19CAE3AB0041421D /* MustacheAnnotator.swift */,
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 		31ED765819CB0DE0007365DC /* Extensions */ = {
@@ -404,11 +404,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3174137119CDB6E3005B3225 /* MustachePosition.swift in Sources */,
+				31BF3E8619CCDD8C00DED354 /* MustacheAdjustment.swift in Sources */,
 				31ED765D19CB10E4007365DC /* UIImage+ImageOrientation.swift in Sources */,
 				31AE5EB119CB7E9400364087 /* PhotoEditorViewController.swift in Sources */,
-				31E6418C19CAE3AB0041421D /* MustacheAnnotator.swift in Sources */,
 				31E6414D19CAD4C10041421D /* AppDelegate.swift in Sources */,
-				1D8A6D4119CC56BE00DF82BC /* MustacheAdjustmentData.swift in Sources */,
 				31ED765A19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -426,9 +426,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				31ED765E19CB10E4007365DC /* UIImage+ImageOrientation.swift in Sources */,
-				1D8A6D4219CC56BE00DF82BC /* MustacheAdjustmentData.swift in Sources */,
+				31BF3E8719CCDD8C00DED354 /* MustacheAdjustment.swift in Sources */,
+				3174137219CDB6E3005B3225 /* MustachePosition.swift in Sources */,
 				31ED765B19CB0E06007365DC /* UIImage+RotatedImage.swift in Sources */,
-				31E6418D19CAE3AB0041421D /* MustacheAnnotator.swift in Sources */,
 				31E6417D19CADC100041421D /* PhotoEditingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
