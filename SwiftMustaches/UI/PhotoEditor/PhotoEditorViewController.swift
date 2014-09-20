@@ -191,6 +191,12 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         }
         let mustacheAdjustment = adjustment!
         
+        if mustacheAdjustment.mustachePositions.count == 0 {
+            presentErrorAlertView(message: "Unable to add mustaches")
+            saving = false
+            return
+        }
+        
         let output = PHContentEditingOutput(contentEditingInput: input)
         output.adjustmentData = mustacheAdjustment.adjustmentData()
         

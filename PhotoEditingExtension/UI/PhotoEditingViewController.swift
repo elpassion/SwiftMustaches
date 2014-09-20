@@ -54,6 +54,10 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
             adjustment = MustacheAdjustment(image: fullSizeImage)
         }
         
+        if adjustment!.mustachePositions.count == 0 {
+            presentErrorAlertView(message: "Unable to add mustaches")
+        }
+        
         let fullSizeAnnotatedImage = adjustment!.applyAdjustment(fullSizeImage)
         
         photoImageView.image = fullSizeAnnotatedImage
@@ -63,6 +67,12 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
         dispatch_async(dispatch_get_global_queue(CLong(DISPATCH_QUEUE_PRIORITY_DEFAULT), 0)) {
             if self.input == nil {
                 completionHandler(nil)
+                return
+            }
+            
+            if self.adjustment!.mustachePositions.count == 0 {
+                NSLog("Nothing changed")
+                completionHandler?(nil)
                 return
             }
             
@@ -111,6 +121,12 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
             views: ["effectView": effectView])
         view.addConstraints(verticalConstraints)
         view.addConstraints(horizontalConstraints)
+    }
+    
+    private func presentErrorAlertView(#message: String) -> Void {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
 }
