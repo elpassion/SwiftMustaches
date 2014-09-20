@@ -18,6 +18,12 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
     var input: PHContentEditingInput?
     var adjustment: MustacheAdjustment?
     
+    var image: UIImage? {
+        didSet {
+            photoImageView.image = image
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,11 +62,11 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
         
         if adjustment!.mustachePositions.count == 0 {
             presentErrorAlertView(message: "Unable to add mustaches")
+            image = fullSizeImage
         }
-        
-        let fullSizeAnnotatedImage = adjustment!.applyAdjustment(fullSizeImage)
-        
-        photoImageView.image = fullSizeAnnotatedImage
+        else {
+            image = adjustment!.applyAdjustment(fullSizeImage)
+        }
     }
 
     func finishContentEditingWithCompletionHandler(completionHandler: ((PHContentEditingOutput!) -> Void)!) {
@@ -79,10 +85,7 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
             let output = PHContentEditingOutput(contentEditingInput: self.input)
             output.adjustmentData = self.adjustment!.adjustmentData()
             
-            let fullSizeImageUrl = self.input!.fullSizeImageURL
-            let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
-            let fullSizeAnnotatedImage = self.adjustment!.applyAdjustment(fullSizeImage)
-            let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
+            let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(self.image, 0.9)
             
             var error: NSError?
             let success = fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite, error: &error)
