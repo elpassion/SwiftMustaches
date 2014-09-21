@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "31E6417219CADC100041421D"
-               BuildableName = "PhotoEditingExtension.appex"
-               BlueprintName = "PhotoEditingExtension"
+               BuildableName = "MustachePhotoEditingExtension.appex"
+               BlueprintName = "MustachePhotoEditingExtension"
                ReferencedContainer = "container:SwiftMustaches.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -48,8 +48,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "31E6417219CADC100041421D"
-            BuildableName = "PhotoEditingExtension.appex"
-            BlueprintName = "PhotoEditingExtension"
+            BuildableName = "MustachePhotoEditingExtension.appex"
+            BlueprintName = "MustachePhotoEditingExtension"
             ReferencedContainer = "container:SwiftMustaches.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

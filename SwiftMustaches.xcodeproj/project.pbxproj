@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		31A7DB4519CEFACA0081C234 /* MustacheAdjustment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */; };
-		31A7DB4619CEFACA0081C234 /* MustacheAdjustment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		31A7DB4519CEFACA0081C234 /* MustacheAdjustmentFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A7DB3119CEFACA0081C234 /* MustacheAdjustmentFramework.framework */; };
+		31A7DB4619CEFACA0081C234 /* MustacheAdjustmentFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31A7DB3119CEFACA0081C234 /* MustacheAdjustmentFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		31A7DB5219CEFB8F0081C234 /* MustachePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A7DB5119CEFB8F0081C234 /* MustachePosition.swift */; };
 		31A7DB5419CEFB980081C234 /* MustacheAdjustment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A7DB5319CEFB980081C234 /* MustacheAdjustment.swift */; };
 		31A7DB5819CEFC510081C234 /* UIImage+ImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A7DB5619CEFC510081C234 /* UIImage+ImageOrientation.swift */; };
 		31A7DB5919CEFC510081C234 /* UIImage+RotatedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A7DB5719CEFC510081C234 /* UIImage+RotatedImage.swift */; };
-		31A7DB5A19CEFC8B0081C234 /* MustacheAdjustment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */; };
+		31A7DB5A19CEFC8B0081C234 /* MustacheAdjustmentFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A7DB3119CEFACA0081C234 /* MustacheAdjustmentFramework.framework */; };
 		31AE5EB119CB7E9400364087 /* PhotoEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AE5EB019CB7E9400364087 /* PhotoEditorViewController.swift */; };
 		31AE5EB319CB7ECA00364087 /* PhotoEditor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31AE5EB219CB7ECA00364087 /* PhotoEditor.storyboard */; };
 		31E6414D19CAD4C10041421D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6414C19CAD4C10041421D /* AppDelegate.swift */; };
@@ -23,7 +23,7 @@
 		31E6417819CADC100041421D /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E6417719CADC100041421D /* Photos.framework */; };
 		31E6417D19CADC100041421D /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6417C19CADC100041421D /* PhotoEditingViewController.swift */; };
 		31E6417F19CADC100041421D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E6417E19CADC100041421D /* MainInterface.storyboard */; };
-		31E6418219CADC100041421D /* PhotoEditingExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 31E6417319CADC100041421D /* PhotoEditingExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		31E6418219CADC100041421D /* MustachePhotoEditingExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 31E6417319CADC100041421D /* MustachePhotoEditingExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		31ED765F19CB1CA7007365DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31E6415319CAD4C10041421D /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -65,7 +65,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				31A7DB4619CEFACA0081C234 /* MustacheAdjustment.framework in Embed Frameworks */,
+				31A7DB4619CEFACA0081C234 /* MustacheAdjustmentFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,7 +76,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				31E6418219CADC100041421D /* PhotoEditingExtension.appex in Embed App Extensions */,
+				31E6418219CADC100041421D /* MustachePhotoEditingExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,7 +84,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MustacheAdjustment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		31A7DB3119CEFACA0081C234 /* MustacheAdjustmentFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MustacheAdjustmentFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31A7DB3419CEFACA0081C234 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31A7DB5119CEFB8F0081C234 /* MustachePosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MustachePosition.swift; sourceTree = "<group>"; };
 		31A7DB5319CEFB980081C234 /* MustacheAdjustment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MustacheAdjustment.swift; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 		31E6414C19CAD4C10041421D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31E6415319CAD4C10041421D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		31E6415619CAD4C10041421D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		31E6417319CADC100041421D /* PhotoEditingExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PhotoEditingExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		31E6417319CADC100041421D /* MustachePhotoEditingExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MustachePhotoEditingExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E6417519CADC100041421D /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		31E6417719CADC100041421D /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		31E6417B19CADC100041421D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -117,7 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31A7DB4519CEFACA0081C234 /* MustacheAdjustment.framework in Frameworks */,
+				31A7DB4519CEFACA0081C234 /* MustacheAdjustmentFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,7 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31A7DB5A19CEFC8B0081C234 /* MustacheAdjustment.framework in Frameworks */,
+				31A7DB5A19CEFC8B0081C234 /* MustacheAdjustmentFramework.framework in Frameworks */,
 				31E6417619CADC100041421D /* PhotosUI.framework in Frameworks */,
 				31E6417819CADC100041421D /* Photos.framework in Frameworks */,
 			);
@@ -134,7 +134,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		31A7DB3219CEFACA0081C234 /* MustacheAdjustment */ = {
+		31A7DB3219CEFACA0081C234 /* MustacheAdjustmentFramework */ = {
 			isa = PBXGroup;
 			children = (
 				31A7DB5519CEFC510081C234 /* Extensions */,
@@ -142,7 +142,7 @@
 				31A7DB5319CEFB980081C234 /* MustacheAdjustment.swift */,
 				31A7DB3319CEFACA0081C234 /* Supporting Files */,
 			);
-			path = MustacheAdjustment;
+			path = MustacheAdjustmentFramework;
 			sourceTree = "<group>";
 		};
 		31A7DB3319CEFACA0081C234 /* Supporting Files */ = {
@@ -182,11 +182,11 @@
 		31E6413E19CAD4C10041421D = {
 			isa = PBXGroup;
 			children = (
-				31E6414919CAD4C10041421D /* SwiftMustaches */,
-				31E6417919CADC100041421D /* PhotoEditingExtension */,
-				31A7DB3219CEFACA0081C234 /* MustacheAdjustment */,
 				31E6417419CADC100041421D /* Frameworks */,
+				31A7DB3219CEFACA0081C234 /* MustacheAdjustmentFramework */,
+				31E6417919CADC100041421D /* MustachePhotoEditingExtension */,
 				31E6414819CAD4C10041421D /* Products */,
+				31E6414919CAD4C10041421D /* SwiftMustaches */,
 			);
 			sourceTree = "<group>";
 		};
@@ -194,8 +194,8 @@
 			isa = PBXGroup;
 			children = (
 				31E6414719CAD4C10041421D /* SwiftMustaches.app */,
-				31E6417319CADC100041421D /* PhotoEditingExtension.appex */,
-				31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */,
+				31E6417319CADC100041421D /* MustachePhotoEditingExtension.appex */,
+				31A7DB3119CEFACA0081C234 /* MustacheAdjustmentFramework.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -253,13 +253,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		31E6417919CADC100041421D /* PhotoEditingExtension */ = {
+		31E6417919CADC100041421D /* MustachePhotoEditingExtension */ = {
 			isa = PBXGroup;
 			children = (
 				31E6418919CADC560041421D /* UI */,
 				31E6417A19CADC100041421D /* Supporting Files */,
 			);
-			path = PhotoEditingExtension;
+			path = MustachePhotoEditingExtension;
 			sourceTree = "<group>";
 		};
 		31E6417A19CADC100041421D /* Supporting Files */ = {
@@ -292,9 +292,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		31A7DB3019CEFACA0081C234 /* MustacheAdjustment */ = {
+		31A7DB3019CEFACA0081C234 /* MustacheAdjustmentFramework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 31A7DB4D19CEFACA0081C234 /* Build configuration list for PBXNativeTarget "MustacheAdjustment" */;
+			buildConfigurationList = 31A7DB4D19CEFACA0081C234 /* Build configuration list for PBXNativeTarget "MustacheAdjustmentFramework" */;
 			buildPhases = (
 				31A7DB2C19CEFACA0081C234 /* Sources */,
 				31A7DB2D19CEFACA0081C234 /* Frameworks */,
@@ -305,9 +305,9 @@
 			);
 			dependencies = (
 			);
-			name = MustacheAdjustment;
+			name = MustacheAdjustmentFramework;
 			productName = MustacheAdjustment;
-			productReference = 31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */;
+			productReference = 31A7DB3119CEFACA0081C234 /* MustacheAdjustmentFramework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		31E6414619CAD4C10041421D /* SwiftMustaches */ = {
@@ -333,9 +333,9 @@
 			productReference = 31E6414719CAD4C10041421D /* SwiftMustaches.app */;
 			productType = "com.apple.product-type.application";
 		};
-		31E6417219CADC100041421D /* PhotoEditingExtension */ = {
+		31E6417219CADC100041421D /* MustachePhotoEditingExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 31E6418719CADC110041421D /* Build configuration list for PBXNativeTarget "PhotoEditingExtension" */;
+			buildConfigurationList = 31E6418719CADC110041421D /* Build configuration list for PBXNativeTarget "MustachePhotoEditingExtension" */;
 			buildPhases = (
 				31E6416F19CADC100041421D /* Sources */,
 				31E6417019CADC100041421D /* Frameworks */,
@@ -345,9 +345,9 @@
 			);
 			dependencies = (
 			);
-			name = PhotoEditingExtension;
+			name = MustachePhotoEditingExtension;
 			productName = PhotoEditingExtension;
-			productReference = 31E6417319CADC100041421D /* PhotoEditingExtension.appex */;
+			productReference = 31E6417319CADC100041421D /* MustachePhotoEditingExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -384,8 +384,8 @@
 			projectRoot = "";
 			targets = (
 				31E6414619CAD4C10041421D /* SwiftMustaches */,
-				31E6417219CADC100041421D /* PhotoEditingExtension */,
-				31A7DB3019CEFACA0081C234 /* MustacheAdjustment */,
+				31E6417219CADC100041421D /* MustachePhotoEditingExtension */,
+				31A7DB3019CEFACA0081C234 /* MustacheAdjustmentFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -453,22 +453,22 @@
 /* Begin PBXTargetDependency section */
 		31A7DB4419CEFACA0081C234 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 31A7DB3019CEFACA0081C234 /* MustacheAdjustment */;
+			target = 31A7DB3019CEFACA0081C234 /* MustacheAdjustmentFramework */;
 			targetProxy = 31A7DB4319CEFACA0081C234 /* PBXContainerItemProxy */;
 		};
 		31A7DB4819CEFACA0081C234 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 31A7DB3019CEFACA0081C234 /* MustacheAdjustment */;
+			target = 31A7DB3019CEFACA0081C234 /* MustacheAdjustmentFramework */;
 			targetProxy = 31A7DB4719CEFACA0081C234 /* PBXContainerItemProxy */;
 		};
 		31E6418119CADC100041421D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 31E6417219CADC100041421D /* PhotoEditingExtension */;
+			target = 31E6417219CADC100041421D /* MustachePhotoEditingExtension */;
 			targetProxy = 31E6418019CADC100041421D /* PBXContainerItemProxy */;
 		};
 		31E6418419CADC110041421D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 31E6417219CADC100041421D /* PhotoEditingExtension */;
+			target = 31E6417219CADC100041421D /* MustachePhotoEditingExtension */;
 			targetProxy = 31E6418319CADC110041421D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -498,7 +498,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "MustacheAdjustment/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "MustacheAdjustmentFramework/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -517,7 +517,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "MustacheAdjustment/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "MustacheAdjustmentFramework/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -633,7 +633,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "PhotoEditingExtension/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "MustachePhotoEditingExtension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -643,7 +643,7 @@
 		31E6418619CADC110041421D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = "PhotoEditingExtension/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "MustachePhotoEditingExtension/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -653,7 +653,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		31A7DB4D19CEFACA0081C234 /* Build configuration list for PBXNativeTarget "MustacheAdjustment" */ = {
+		31A7DB4D19CEFACA0081C234 /* Build configuration list for PBXNativeTarget "MustacheAdjustmentFramework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				31A7DB4919CEFACA0081C234 /* Debug */,
@@ -680,7 +680,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		31E6418719CADC110041421D /* Build configuration list for PBXNativeTarget "PhotoEditingExtension" */ = {
+		31E6418719CADC110041421D /* Build configuration list for PBXNativeTarget "MustachePhotoEditingExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				31E6418519CADC110041421D /* Debug */,
