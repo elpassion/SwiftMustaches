@@ -26,8 +26,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
                 let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
                 if input.adjustmentData != nil {
                     adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
-                    let annotatedImage = self.adjustment!.applyAdjustment(fullSizeImage)
-                    photoImageView.image = annotatedImage
+                    photoImageView.image = self.adjustment!.applyAdjustment(fullSizeImage)
                 }
                 else {
                     adjustment = nil
