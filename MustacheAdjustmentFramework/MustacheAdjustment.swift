@@ -9,8 +9,8 @@
 import Foundation
 import Photos
 
-let MustacheAdjustmentDataFormatIdentifier = "com.elpassion.SwiftMustaches.MustacheAnnotator"
-let MustacheAdjustmentDataFormatVersion = "0.1"
+let MustacheAdjustmentDataFormatIdentifier = "com.elpassion.SwiftMustaches.MustacheAdjustment"
+let MustacheAdjustmentDataFormatVersion = "0.2"
 
 public class MustacheAdjustment {
     
