@@ -38,7 +38,13 @@ public class MustacheAdjustment {
                 CIDetectorMinFeatureSize: NSNumber(float: 0.1)
             ])
         
-        let ciImage = CIImage(CGImage: image.CGImage)
+        UIGraphicsBeginImageContextWithOptions(image.size, true, image.scale)
+        let context = UIGraphicsGetCurrentContext()!
+        image.drawAtPoint(CGPointZero)
+        let cgImage = UIGraphicsGetImageFromCurrentImageContext()!.CGImage
+        let ciImage = CIImage(CGImage: cgImage)
+        UIGraphicsEndImageContext()
+        
         let features = detector.featuresInImage(
             ciImage,
             options: [
