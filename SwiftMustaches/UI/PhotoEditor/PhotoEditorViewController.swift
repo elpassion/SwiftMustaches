@@ -31,7 +31,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
                 }
                 else {
                     adjustment = nil
-                    photoImageView.image = input.displaySizeImage
+                    photoImageView.image = fullSizeImage
                 }
             }
             else {
