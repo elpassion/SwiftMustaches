@@ -137,32 +137,29 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         }
         let asset = asset!
         
-        let options = PHContentEditingInputRequestOptions()
-        options.canHandleAdjustmentData = { (adjustmentData) -> Bool in
-            return MustacheAdjustment.canHandleAdjustmentData(adjustmentData)
-        }
-        
-        asset.requestContentEditingInputWithOptions(options, completionHandler: { [weak self] (input, info) -> Void in
-            if self == nil {
-                NSLog("Error: aborting due to VC deallocation")
-                return
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
+            let options = PHContentEditingInputRequestOptions()
+            options.canHandleAdjustmentData = { (adjustmentData) -> Bool in
+                return MustacheAdjustment.canHandleAdjustmentData(adjustmentData)
             }
             
-            if input.adjustmentData == nil {
-                NSLog("Loaded asset WITHOUT adjustment data")
-                self!.adjustment = nil
-            }
-            else {
-                NSLog("Loaded asset WITH adjustment data")
-                self!.adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
-            }
-            
-            self!.asset = asset
-            self!.input = input
-            
-            if let completion = completion {
-                completion()
-            }
+            asset.requestContentEditingInputWithOptions(options, completionHandler: { (input, info) -> Void in
+                if input.adjustmentData == nil {
+                    NSLog("Loaded asset WITHOUT adjustment data")
+                    self?.adjustment = nil
+                }
+                else {
+                    NSLog("Loaded asset WITH adjustment data")
+                    self?.adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
+                }
+                
+                self?.asset = asset
+                self?.input = input
+                
+                if let completion = completion {
+                    completion()
+                }
+            })
         })
     }
     
@@ -181,61 +178,54 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         }
         let asset = self.asset!
         
+        var adjustment = self.adjustment
+        
         saving = true
         
-        let fullSizeImageUrl = input.fullSizeImageURL
-        let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
-        
-        if adjustment == nil {
-            adjustment = MustacheAdjustment(image: fullSizeImage)
-        }
-        let mustacheAdjustment = adjustment!
-        
-        if mustacheAdjustment.mustachePositions.count == 0 {
-            presentErrorAlertView(message: "Unable to add mustaches")
-            saving = false
-            return
-        }
-        
-        let output = PHContentEditingOutput(contentEditingInput: input)
-        output.adjustmentData = mustacheAdjustment.adjustmentData()
-        
-        let fullSizeAnnotatedImage = mustacheAdjustment.applyAdjustment(fullSizeImage)
-        let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
-        
-        var error: NSError?
-        let success = fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite, error: &error)
-        if !success {
-            presentErrorAlertView(message: "Error when writing file: \(error?.localizedDescription)")
-            saving = false
-            return
-        }
-        
-        PHPhotoLibrary.sharedPhotoLibrary().performChanges({ [weak self] () -> Void in
-            if self == nil {
-                NSLog("Error: aborting due to VC deallocation")
-                return
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
+            let fullSizeImageUrl = input.fullSizeImageURL
+            let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
+            
+            if adjustment == nil {
+                adjustment = MustacheAdjustment(image: fullSizeImage)
             }
+            let adjustment = adjustment!
             
-            if self!.asset == nil {
-                self!.presentErrorAlertView(message: "Can't perform modifications, no asset")
-                self!.saving = false
-                return
-            }
-            let asset = self!.asset
-            
-            let request = PHAssetChangeRequest(forAsset: asset)
-            request.contentEditingOutput = output
-            
-        }, completionHandler: { [weak self] (success, error) -> Void in
-            if !success {
-                self?.presentErrorAlertView(message: "Error saving modifications: \(error?.localizedDescription)")
+            if adjustment.mustachePositions.count == 0 {
+                self?.presentErrorAlertView(message: "Unable to add mustaches")
                 self?.saving = false
                 return
             }
             
-            NSLog("Photo modifications performed successfully")
-            self?.saving = false
+            let output = PHContentEditingOutput(contentEditingInput: input)
+            output.adjustmentData = adjustment.adjustmentData()
+            
+            let fullSizeAnnotatedImage = adjustment.applyAdjustment(fullSizeImage)
+            let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
+            
+            var error: NSError?
+            let success = fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite, error: &error)
+            if !success {
+                self?.presentErrorAlertView(message: "Error when writing file: \(error?.localizedDescription)")
+                self?.saving = false
+                return
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
+                    let request = PHAssetChangeRequest(forAsset: asset)
+                    request.contentEditingOutput = output
+                }, completionHandler: { (success, error) -> Void in
+                    if !success {
+                        self?.presentErrorAlertView(message: "Error saving modifications: \(error?.localizedDescription)")
+                        self?.saving = false
+                        return
+                    }
+                    
+                    NSLog("Photo modifications performed successfully")
+                    self?.saving = false
+                })
+            })
         })
     }
     
@@ -256,22 +246,9 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         
         saving = true
         
-        PHPhotoLibrary.sharedPhotoLibrary().performChanges({ [weak self] () -> Void in
-            if self == nil {
-                NSLog("Error: aborting due to VC deallocation")
-                return
-            }
-            
-            if self!.asset == nil {
-                self!.presentErrorAlertView(message: "Can't perform revert, no asset")
-                self!.saving = false
-                return
-            }
-            let asset = self!.asset
-            
+        PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
             let request = PHAssetChangeRequest(forAsset: asset)
             request.revertAssetContentToOriginal()
-            
         }, completionHandler: { [weak self] (success, error) -> Void in
             if !success {
                 self?.presentErrorAlertView(message: "Error reverting modifications: \(error?.localizedDescription)")
