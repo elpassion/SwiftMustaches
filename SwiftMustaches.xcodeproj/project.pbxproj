@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		31A7DB4219CEFACA0081C234 /* MustacheAdjustmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A7DB4119CEFACA0081C234 /* MustacheAdjustmentTests.swift */; };
 		31A7DB4519CEFACA0081C234 /* MustacheAdjustment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */; };
 		31A7DB4619CEFACA0081C234 /* MustacheAdjustment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		31A7DB5219CEFB8F0081C234 /* MustachePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A7DB5119CEFB8F0081C234 /* MustachePosition.swift */; };
@@ -20,7 +19,6 @@
 		31E6414D19CAD4C10041421D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6414C19CAD4C10041421D /* AppDelegate.swift */; };
 		31E6415419CAD4C10041421D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31E6415319CAD4C10041421D /* Images.xcassets */; };
 		31E6415719CAD4C10041421D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31E6415519CAD4C10041421D /* LaunchScreen.xib */; };
-		31E6416319CAD4C10041421D /* SwiftMustachesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6416219CAD4C10041421D /* SwiftMustachesTests.swift */; };
 		31E6417619CADC100041421D /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E6417519CADC100041421D /* PhotosUI.framework */; };
 		31E6417819CADC100041421D /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E6417719CADC100041421D /* Photos.framework */; };
 		31E6417D19CADC100041421D /* PhotoEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6417C19CADC100041421D /* PhotoEditingViewController.swift */; };
@@ -30,13 +28,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		31A7DB3C19CEFACA0081C234 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 31E6413F19CAD4C10041421D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 31E6414619CAD4C10041421D;
-			remoteInfo = SwiftMustaches;
-		};
 		31A7DB4319CEFACA0081C234 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 31E6413F19CAD4C10041421D /* Project object */;
@@ -50,13 +41,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 31A7DB3019CEFACA0081C234;
 			remoteInfo = MustacheAdjustment;
-		};
-		31E6415D19CAD4C10041421D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 31E6413F19CAD4C10041421D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 31E6414619CAD4C10041421D;
-			remoteInfo = SwiftMustaches;
 		};
 		31E6418019CADC100041421D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -102,9 +86,6 @@
 /* Begin PBXFileReference section */
 		31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MustacheAdjustment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31A7DB3419CEFACA0081C234 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		31A7DB3B19CEFACA0081C234 /* MustacheAdjustmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MustacheAdjustmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		31A7DB4019CEFACA0081C234 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		31A7DB4119CEFACA0081C234 /* MustacheAdjustmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustacheAdjustmentTests.swift; sourceTree = "<group>"; };
 		31A7DB5119CEFB8F0081C234 /* MustachePosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MustachePosition.swift; sourceTree = "<group>"; };
 		31A7DB5319CEFB980081C234 /* MustacheAdjustment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MustacheAdjustment.swift; sourceTree = "<group>"; };
 		31A7DB5619CEFC510081C234 /* UIImage+ImageOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageOrientation.swift"; sourceTree = "<group>"; };
@@ -116,9 +97,6 @@
 		31E6414C19CAD4C10041421D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31E6415319CAD4C10041421D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		31E6415619CAD4C10041421D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		31E6415C19CAD4C10041421D /* SwiftMustachesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftMustachesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		31E6416119CAD4C10041421D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		31E6416219CAD4C10041421D /* SwiftMustachesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMustachesTests.swift; sourceTree = "<group>"; };
 		31E6417319CADC100041421D /* PhotoEditingExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PhotoEditingExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E6417519CADC100041421D /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		31E6417719CADC100041421D /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -135,25 +113,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		31A7DB3819CEFACA0081C234 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		31E6414419CAD4C10041421D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				31A7DB4519CEFACA0081C234 /* MustacheAdjustment.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		31E6415919CAD4C10041421D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,23 +153,6 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		31A7DB3E19CEFACA0081C234 /* MustacheAdjustmentTests */ = {
-			isa = PBXGroup;
-			children = (
-				31A7DB4119CEFACA0081C234 /* MustacheAdjustmentTests.swift */,
-				31A7DB3F19CEFACA0081C234 /* Supporting Files */,
-			);
-			path = MustacheAdjustmentTests;
-			sourceTree = "<group>";
-		};
-		31A7DB3F19CEFACA0081C234 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				31A7DB4019CEFACA0081C234 /* Info.plist */,
-			);
-			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		31A7DB5019CEFB800081C234 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,10 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				31E6414919CAD4C10041421D /* SwiftMustaches */,
-				31E6415F19CAD4C10041421D /* SwiftMustachesTests */,
 				31E6417919CADC100041421D /* PhotoEditingExtension */,
 				31A7DB3219CEFACA0081C234 /* MustacheAdjustment */,
-				31A7DB3E19CEFACA0081C234 /* MustacheAdjustmentTests */,
 				31E6417419CADC100041421D /* Frameworks */,
 				31E6414819CAD4C10041421D /* Products */,
 			);
@@ -249,10 +194,8 @@
 			isa = PBXGroup;
 			children = (
 				31E6414719CAD4C10041421D /* SwiftMustaches.app */,
-				31E6415C19CAD4C10041421D /* SwiftMustachesTests.xctest */,
 				31E6417319CADC100041421D /* PhotoEditingExtension.appex */,
 				31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */,
-				31A7DB3B19CEFACA0081C234 /* MustacheAdjustmentTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -272,23 +215,6 @@
 			isa = PBXGroup;
 			children = (
 				31E6414B19CAD4C10041421D /* Info.plist */,
-			);
-			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		31E6415F19CAD4C10041421D /* SwiftMustachesTests */ = {
-			isa = PBXGroup;
-			children = (
-				31E6416019CAD4C10041421D /* Supporting Files */,
-				31E6416219CAD4C10041421D /* SwiftMustachesTests.swift */,
-			);
-			path = SwiftMustachesTests;
-			sourceTree = "<group>";
-		};
-		31E6416019CAD4C10041421D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				31E6416119CAD4C10041421D /* Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -384,24 +310,6 @@
 			productReference = 31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		31A7DB3A19CEFACA0081C234 /* MustacheAdjustmentTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 31A7DB4F19CEFACA0081C234 /* Build configuration list for PBXNativeTarget "MustacheAdjustmentTests" */;
-			buildPhases = (
-				31A7DB3719CEFACA0081C234 /* Sources */,
-				31A7DB3819CEFACA0081C234 /* Frameworks */,
-				31A7DB3919CEFACA0081C234 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				31A7DB3D19CEFACA0081C234 /* PBXTargetDependency */,
-			);
-			name = MustacheAdjustmentTests;
-			productName = MustacheAdjustmentTests;
-			productReference = 31A7DB3B19CEFACA0081C234 /* MustacheAdjustmentTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		31E6414619CAD4C10041421D /* SwiftMustaches */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 31E6416619CAD4C10041421D /* Build configuration list for PBXNativeTarget "SwiftMustaches" */;
@@ -424,24 +332,6 @@
 			productName = SwiftMustaches;
 			productReference = 31E6414719CAD4C10041421D /* SwiftMustaches.app */;
 			productType = "com.apple.product-type.application";
-		};
-		31E6415B19CAD4C10041421D /* SwiftMustachesTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 31E6416919CAD4C10041421D /* Build configuration list for PBXNativeTarget "SwiftMustachesTests" */;
-			buildPhases = (
-				31E6415819CAD4C10041421D /* Sources */,
-				31E6415919CAD4C10041421D /* Frameworks */,
-				31E6415A19CAD4C10041421D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				31E6415E19CAD4C10041421D /* PBXTargetDependency */,
-			);
-			name = SwiftMustachesTests;
-			productName = SwiftMustachesTests;
-			productReference = 31E6415C19CAD4C10041421D /* SwiftMustachesTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		31E6417219CADC100041421D /* PhotoEditingExtension */ = {
 			isa = PBXNativeTarget;
@@ -472,16 +362,8 @@
 					31A7DB3019CEFACA0081C234 = {
 						CreatedOnToolsVersion = 6.0.1;
 					};
-					31A7DB3A19CEFACA0081C234 = {
-						CreatedOnToolsVersion = 6.0.1;
-						TestTargetID = 31E6414619CAD4C10041421D;
-					};
 					31E6414619CAD4C10041421D = {
 						CreatedOnToolsVersion = 6.0.1;
-					};
-					31E6415B19CAD4C10041421D = {
-						CreatedOnToolsVersion = 6.0.1;
-						TestTargetID = 31E6414619CAD4C10041421D;
 					};
 					31E6417219CADC100041421D = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -502,23 +384,14 @@
 			projectRoot = "";
 			targets = (
 				31E6414619CAD4C10041421D /* SwiftMustaches */,
-				31E6415B19CAD4C10041421D /* SwiftMustachesTests */,
 				31E6417219CADC100041421D /* PhotoEditingExtension */,
 				31A7DB3019CEFACA0081C234 /* MustacheAdjustment */,
-				31A7DB3A19CEFACA0081C234 /* MustacheAdjustmentTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		31A7DB2F19CEFACA0081C234 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		31A7DB3919CEFACA0081C234 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -532,13 +405,6 @@
 				31E6415719CAD4C10041421D /* LaunchScreen.xib in Resources */,
 				31AE5EB319CB7ECA00364087 /* PhotoEditor.storyboard in Resources */,
 				31E6415419CAD4C10041421D /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		31E6415A19CAD4C10041421D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,28 +431,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		31A7DB3719CEFACA0081C234 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				31A7DB4219CEFACA0081C234 /* MustacheAdjustmentTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		31E6414319CAD4C10041421D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				31AE5EB119CB7E9400364087 /* PhotoEditorViewController.swift in Sources */,
 				31E6414D19CAD4C10041421D /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		31E6415819CAD4C10041421D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				31E6416319CAD4C10041421D /* SwiftMustachesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,11 +451,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		31A7DB3D19CEFACA0081C234 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 31E6414619CAD4C10041421D /* SwiftMustaches */;
-			targetProxy = 31A7DB3C19CEFACA0081C234 /* PBXContainerItemProxy */;
-		};
 		31A7DB4419CEFACA0081C234 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 31A7DB3019CEFACA0081C234 /* MustacheAdjustment */;
@@ -615,11 +460,6 @@
 			isa = PBXTargetDependency;
 			target = 31A7DB3019CEFACA0081C234 /* MustacheAdjustment */;
 			targetProxy = 31A7DB4719CEFACA0081C234 /* PBXContainerItemProxy */;
-		};
-		31E6415E19CAD4C10041421D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 31E6414619CAD4C10041421D /* SwiftMustaches */;
-			targetProxy = 31E6415D19CAD4C10041421D /* PBXContainerItemProxy */;
 		};
 		31E6418119CADC100041421D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -684,38 +524,6 @@
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		31A7DB4B19CEFACA0081C234 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "MustacheAdjustmentTests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMustaches.app/SwiftMustaches";
-			};
-			name = Debug;
-		};
-		31A7DB4C19CEFACA0081C234 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "MustacheAdjustmentTests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMustaches.app/SwiftMustaches";
 			};
 			name = Release;
 		};
@@ -818,40 +626,6 @@
 			};
 			name = Release;
 		};
-		31E6416A19CAD4C10041421D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "SwiftMustachesTests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMustaches.app/SwiftMustaches";
-			};
-			name = Debug;
-		};
-		31E6416B19CAD4C10041421D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "SwiftMustachesTests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftMustaches.app/SwiftMustaches";
-			};
-			name = Release;
-		};
 		31E6418519CADC110041421D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -888,15 +662,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		31A7DB4F19CEFACA0081C234 /* Build configuration list for PBXNativeTarget "MustacheAdjustmentTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				31A7DB4B19CEFACA0081C234 /* Debug */,
-				31A7DB4C19CEFACA0081C234 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		31E6414219CAD4C10041421D /* Build configuration list for PBXProject "SwiftMustaches" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -911,15 +676,6 @@
 			buildConfigurations = (
 				31E6416719CAD4C10041421D /* Debug */,
 				31E6416819CAD4C10041421D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		31E6416919CAD4C10041421D /* Build configuration list for PBXNativeTarget "SwiftMustachesTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				31E6416A19CAD4C10041421D /* Debug */,
-				31E6416B19CAD4C10041421D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
