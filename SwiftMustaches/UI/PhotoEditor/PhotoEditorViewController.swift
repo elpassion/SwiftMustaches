@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import MustacheAdjustment
 
 class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver {
     

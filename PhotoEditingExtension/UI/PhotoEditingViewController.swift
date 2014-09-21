@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 import PhotosUI
+import MustacheAdjustment
 
 class PhotoEditingViewController: UIViewController, PHContentEditingController {
 
