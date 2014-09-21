@@ -18,6 +18,7 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
     
     var input: PHContentEditingInput?
     var adjustment: MustacheAdjustment?
+    var adjustmentAlreadySet: Bool = false
     
     var image: UIImage? {
         didSet {
@@ -39,6 +40,7 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
 
     func startContentEditingWithInput(contentEditingInput: PHContentEditingInput?, placeholderImage: UIImage) {
         self.input = contentEditingInput
+        backgroundImageView.image = placeholderImage
         
         if self.input == nil {
             return
@@ -46,19 +48,20 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
         let input = self.input!
         
         if input.mediaType != .Image {
+            presentErrorAlertView(message: "Mustaches can only be added to images")
             return
         }
-        
-        backgroundImageView.image = placeholderImage
         
         let fullSizeImageUrl = input.fullSizeImageURL
         let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
         
         if input.adjustmentData != nil {
             adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
+            adjustmentAlreadySet = true
         }
         else {
             adjustment = MustacheAdjustment(image: fullSizeImage)
+            adjustmentAlreadySet = false
         }
         
         if adjustment!.mustachePositions.count == 0 {
@@ -72,12 +75,12 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
 
     func finishContentEditingWithCompletionHandler(completionHandler: ((PHContentEditingOutput!) -> Void)!) {
         dispatch_async(dispatch_get_global_queue(CLong(DISPATCH_QUEUE_PRIORITY_DEFAULT), 0)) {
-            if self.input == nil {
-                completionHandler(nil)
-                return
-            }
-            
-            if self.adjustment!.mustachePositions.count == 0 {
+            let isInputSet = (self.input != nil)
+            let isAdjustmentSet = (self.adjustment != nil)
+            let isMustachePositionSet = (self.adjustment?.mustachePositions.count > 0)
+            let wasAdjustmentAlreadySet = self.adjustmentAlreadySet
+
+            if !isInputSet || !isAdjustmentSet || !isMustachePositionSet || wasAdjustmentAlreadySet {
                 NSLog("Nothing changed")
                 completionHandler?(nil)
                 return
@@ -91,6 +94,7 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
             var error: NSError?
             let success = fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite, error: &error)
             if success {
+                NSLog("Saved successfully")
                 completionHandler?(output)
             }
             else {
