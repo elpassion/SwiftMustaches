@@ -29,33 +29,9 @@ public class MustacheAdjustment {
     }
     
     public init(image: UIImage) {
-        let detector = CIDetector(
-            ofType: CIDetectorTypeFace,
-            context: nil,
-            options: [
-                CIDetectorAccuracy: CIDetectorAccuracyHigh,
-                CIDetectorTracking: false,
-                CIDetectorMinFeatureSize: NSNumber(float: 0.1)
-            ])
-        
-        UIGraphicsBeginImageContextWithOptions(image.size, true, image.scale)
-        let context = UIGraphicsGetCurrentContext()!
-        image.drawAtPoint(CGPointZero)
-        let cgImage = UIGraphicsGetImageFromCurrentImageContext()!.CGImage
-        let ciImage = CIImage(CGImage: cgImage)
-        UIGraphicsEndImageContext()
-        
-        let features = detector.featuresInImage(
-            ciImage,
-            options: [
-                CIDetectorImageOrientation: UIImage.orientationPropertyValueFromImageOrientation(.Up),
-                CIDetectorEyeBlink: false,
-                CIDetectorSmile: false
-            ])
-        
         var mustachePositions: [MustachePosition] = []
         
-        for faceFeature in features as [CIFaceFeature] {
+        for faceFeature in FaceDetector.detectFaces(inImage: image) {
             if let mustachePosition = MustacheAdjustment.mustachePosition(imageSize: image.size, faceFeature: faceFeature) {
                 mustachePositions.append(mustachePosition)
                 NSLog("Mustache position found")

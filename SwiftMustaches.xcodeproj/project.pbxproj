@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		310636CC19CF2D0900B04125 /* FaceDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310636CB19CF2D0900B04125 /* FaceDetector.swift */; };
 		31A7DB4519CEFACA0081C234 /* MustacheAdjustmentFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A7DB3119CEFACA0081C234 /* MustacheAdjustmentFramework.framework */; };
 		31A7DB4619CEFACA0081C234 /* MustacheAdjustmentFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31A7DB3119CEFACA0081C234 /* MustacheAdjustmentFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		31A7DB5219CEFB8F0081C234 /* MustachePosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A7DB5119CEFB8F0081C234 /* MustachePosition.swift */; };
@@ -84,6 +85,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		310636CB19CF2D0900B04125 /* FaceDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceDetector.swift; sourceTree = "<group>"; };
 		31A7DB3119CEFACA0081C234 /* MustacheAdjustmentFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MustacheAdjustmentFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31A7DB3419CEFACA0081C234 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31A7DB5119CEFB8F0081C234 /* MustachePosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MustachePosition.swift; sourceTree = "<group>"; };
@@ -134,10 +136,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		310636CD19CF2DF000B04125 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				310636CB19CF2D0900B04125 /* FaceDetector.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		31A7DB3219CEFACA0081C234 /* MustacheAdjustmentFramework */ = {
 			isa = PBXGroup;
 			children = (
 				31A7DB5519CEFC510081C234 /* Extensions */,
+				310636CD19CF2DF000B04125 /* Helpers */,
 				31A7DB5019CEFB800081C234 /* Models */,
 				31A7DB5319CEFB980081C234 /* MustacheAdjustment.swift */,
 				31A7DB3319CEFACA0081C234 /* Supporting Files */,
@@ -424,6 +435,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				310636CC19CF2D0900B04125 /* FaceDetector.swift in Sources */,
 				31A7DB5419CEFB980081C234 /* MustacheAdjustment.swift in Sources */,
 				31A7DB5219CEFB8F0081C234 /* MustachePosition.swift in Sources */,
 				31A7DB5819CEFC510081C234 /* UIImage+ImageOrientation.swift in Sources */,
