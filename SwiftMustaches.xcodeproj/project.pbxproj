@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		31A7DB3619CEFACA0081C234 /* MustacheAdjustment.h in Headers */ = {isa = PBXBuildFile; fileRef = 31A7DB3519CEFACA0081C234 /* MustacheAdjustment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		31A7DB4219CEFACA0081C234 /* MustacheAdjustmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A7DB4119CEFACA0081C234 /* MustacheAdjustmentTests.swift */; };
 		31A7DB4519CEFACA0081C234 /* MustacheAdjustment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */; };
 		31A7DB4619CEFACA0081C234 /* MustacheAdjustment.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -103,7 +102,6 @@
 /* Begin PBXFileReference section */
 		31A7DB3119CEFACA0081C234 /* MustacheAdjustment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MustacheAdjustment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31A7DB3419CEFACA0081C234 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		31A7DB3519CEFACA0081C234 /* MustacheAdjustment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MustacheAdjustment.h; sourceTree = "<group>"; };
 		31A7DB3B19CEFACA0081C234 /* MustacheAdjustmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MustacheAdjustmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		31A7DB4019CEFACA0081C234 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31A7DB4119CEFACA0081C234 /* MustacheAdjustmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustacheAdjustmentTests.swift; sourceTree = "<group>"; };
@@ -177,7 +175,6 @@
 			children = (
 				31A7DB5519CEFC510081C234 /* Extensions */,
 				31A7DB5019CEFB800081C234 /* Models */,
-				31A7DB3519CEFACA0081C234 /* MustacheAdjustment.h */,
 				31A7DB5319CEFB980081C234 /* MustacheAdjustment.swift */,
 				31A7DB3319CEFACA0081C234 /* Supporting Files */,
 			);
@@ -363,7 +360,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31A7DB3619CEFACA0081C234 /* MustacheAdjustment.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
