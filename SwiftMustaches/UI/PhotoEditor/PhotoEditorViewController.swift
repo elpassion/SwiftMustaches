@@ -78,7 +78,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
                 let isSaving = strongSelf.saving
                 let isInputSet = (strongSelf.input != nil)
                 let isInputModified = (strongSelf.input?.adjustmentData != nil)
-                strongSelf.photoImageView.hidden = isLoading || !isInputSet
+                strongSelf.photoImageView.hidden = !isInputSet
                 strongSelf.openBarButtonItem.enabled = !isLoading && !isSaving
                 strongSelf.saveBarButtonItem.enabled = !isLoading && !isSaving && isInputSet && !isInputModified
                 strongSelf.revertBarButtonItem.enabled = !isLoading && !isSaving && isInputModified
