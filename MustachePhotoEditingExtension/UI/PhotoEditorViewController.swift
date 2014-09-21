@@ -11,7 +11,7 @@ import Photos
 import PhotosUI
 import MustacheAdjustmentFramework
 
-class PhotoEditingViewController: UIViewController, PHContentEditingController {
+class PhotoEditorViewController: UIViewController, PHContentEditingController {
 
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var photoImageView: UIImageView!
