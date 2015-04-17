@@ -348,6 +348,7 @@
 				31E6418819CADC110041421D /* Embed App Extensions */,
 				31A7DB4E19CEFACA0081C234 /* Embed Frameworks */,
 				0D1203F1E25A6EB512D62518 /* Copy Pods Resources */,
+				31CE65EB1AE166C600752951 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -463,6 +464,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftMustaches/Pods-SwiftMustaches-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		31CE65EB1AE166C600752951 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Pods/CrashlyticsFramework/Crashlytics.framework/run 4fb6504551d9582cf1d2a1b3cd181e74a6b932fd a548a049d3e5ca6c1cea1bec687fa3d529d6e8189235c6b20e8b0d89f5910489";
 		};
 		FA9FAD1592116E7F917194BF /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -678,6 +693,10 @@
 			baseConfigurationReference = 15D1290C41F208C5E030E28A /* Pods-SwiftMustaches.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "SwiftMustaches/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -689,6 +708,10 @@
 			baseConfigurationReference = DF688D7078F50FBAAE658841 /* Pods-SwiftMustaches.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "SwiftMustaches/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
