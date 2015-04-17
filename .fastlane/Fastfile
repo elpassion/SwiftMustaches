@@ -1,0 +1,40 @@
+fastlane_version "0.10.0"
+
+before_all do
+  @project_path = `cd ..; pwd`.strip
+  ensure_git_status_clean
+end
+
+desc "In House Beta Enterprise Distribution via Crashlytics Beta"
+lane :inhouse do
+  increment_build_number
+
+  build_signed_ipa(
+    workspace_path: "#{@project_path}/SwiftMustaches.xcworkspace",
+    scheme: 'SwiftMustaches',
+    configuration: 'Release',
+    sdk: 'iphoneos',
+    build_path: "#{@project_path}/build",
+    app_name: 'SwiftMustaches',
+    sign_identity: 'iPhone Distribution: EL Passion Next Sp. z o.o.',
+    mobileprovision_path: "#{@project_path}/Misc/ProvisioningProfiles/SwiftMustaches_InHouse.mobileprovision"
+  )
+
+  crashlytics({
+    crashlytics_path: './Pods/CrashlyticsFramework/Crashlytics.framework',
+    api_token: '4fb6504551d9582cf1d2a1b3cd181e74a6b932fd',
+    build_secret: 'a548a049d3e5ca6c1cea1bec687fa3d529d6e8189235c6b20e8b0d89f5910489',
+    groups: 'testers',
+    notifications: 'YES'
+  })
+
+  build_number = Actions.lane_context[Actions::SharedValues::BUILD_NUMBER].to_s
+
+  commit_version_bump(
+    message: 'Deploying beta build_' + build_number
+  )
+
+  add_git_tag(
+    tag: 'build_' + build_number
+  )
+end

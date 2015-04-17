@@ -29,6 +29,11 @@ DerivedData/
 *.xccheckout
 
 ################################
+# AppCode
+
+.idea
+
+################################
 # Backup files
 
 *~
@@ -41,3 +46,9 @@ DerivedData/
 # CocoaPods
 
 Pods/
+!Podfile.lock
+
+################################
+# Fastlane
+
+.fastlane/report.xml
