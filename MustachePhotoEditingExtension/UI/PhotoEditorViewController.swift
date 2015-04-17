@@ -60,7 +60,7 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
             adjustmentAlreadySet = true
         }
         else {
-            adjustment = MustacheAdjustment(image: fullSizeImage)
+            adjustment = MustacheAdjustment(image: fullSizeImage!)
             adjustmentAlreadySet = false
         }
         
@@ -69,7 +69,7 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
             image = fullSizeImage
         }
         else {
-            image = adjustment!.applyAdjustment(fullSizeImage)
+            image = adjustment!.applyAdjustment(fullSizeImage!)
         }
     }
 

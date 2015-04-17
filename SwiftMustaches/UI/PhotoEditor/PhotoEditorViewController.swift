@@ -26,7 +26,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
                 let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
                 if input.adjustmentData != nil {
                     adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
-                    photoImageView.image = self.adjustment!.applyAdjustment(fullSizeImage)
+                    photoImageView.image = self.adjustment!.applyAdjustment(fullSizeImage!)
                 }
                 else {
                     adjustment = nil
@@ -187,7 +187,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
             
             if adjustment == nil {
-                adjustment = MustacheAdjustment(image: fullSizeImage)
+                adjustment = MustacheAdjustment(image: fullSizeImage!)
             }
             let adjustment = adjustment!
             
@@ -200,7 +200,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             let output = PHContentEditingOutput(contentEditingInput: input)
             output.adjustmentData = adjustment.adjustmentData()
             
-            let fullSizeAnnotatedImage = adjustment.applyAdjustment(fullSizeImage)
+            let fullSizeAnnotatedImage = adjustment.applyAdjustment(fullSizeImage!)
             let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
             
             var error: NSError?
@@ -263,7 +263,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
 
     // MARK: - UIImagePickerControllerDelegate
     
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!)  {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])  {
         let assetUrlOptional: NSURL? = info[UIImagePickerControllerReferenceURL] as? NSURL
         if assetUrlOptional == nil {
             NSLog("Error: no asset URL")
@@ -278,7 +278,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             loading = false
             return
         }
-        let asset = fetchResult.firstObject! as PHAsset
+        let asset = fetchResult.firstObject! as! PHAsset
         
         if !asset.canPerformEditOperation(PHAssetEditOperation.Content) {
             NSLog("Error: asset can't be edited")

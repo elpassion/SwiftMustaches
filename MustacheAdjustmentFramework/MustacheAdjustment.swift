@@ -14,7 +14,7 @@ let MustacheAdjustmentDataFormatVersion = "0.2"
 
 public class MustacheAdjustment {
     
-    public let mustacheImage: UIImage = UIImage(named: "mustache")
+    public let mustacheImage: UIImage = UIImage(named: "mustache")!
     public let mustachePositions: [MustachePosition]
     
     // MARK: - Initialization
