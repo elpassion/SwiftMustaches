@@ -20,7 +20,7 @@ public class MustachePosition: NSObject {
     
     public required init(coder aDecoder: NSCoder) {
         self.rect = aDecoder.decodeCGRectForKey("rect")
-        self.angle = aDecoder.decodeObjectForKey("angle") as CGFloat
+        self.angle = aDecoder.decodeObjectForKey("angle") as! CGFloat
     }
     
     public func encodeWithCoder(aCoder: NSCoder) {

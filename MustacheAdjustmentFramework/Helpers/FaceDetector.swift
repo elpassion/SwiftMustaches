@@ -38,7 +38,7 @@ class FaceDetector {
         
         NSLog("Detected faces count: \(features.count)")
         
-        return features as [CIFaceFeature]
+        return features as! [CIFaceFeature]
     }
     
 }
