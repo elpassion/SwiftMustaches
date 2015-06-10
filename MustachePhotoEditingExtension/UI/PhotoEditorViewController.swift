@@ -81,14 +81,15 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
             let isAdjustmentSet = (self.adjustment != nil)
             let isMustachePositionSet = (self.adjustment?.mustachePositions.count > 0)
             let wasAdjustmentAlreadySet = self.adjustmentAlreadySet
+            
+            let output = PHContentEditingOutput(contentEditingInput: self.input!)
 
             if !isInputSet || !isAdjustmentSet || !isMustachePositionSet || wasAdjustmentAlreadySet {
                 NSLog("Nothing changed")
-                completionHandler?(nil)
+                completionHandler?(output)
                 return
             }
             
-            let output = PHContentEditingOutput(contentEditingInput: self.input!)
             output.adjustmentData = self.adjustment!.adjustmentData()
             
             let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(self.image!, 0.9)!
