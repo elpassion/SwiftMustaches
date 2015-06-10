@@ -99,9 +99,11 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     private func presentErrorAlertView(message message: String) -> Void {
-        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
+        dispatch_async(dispatch_get_main_queue()) { [weak self] () -> Void in
+            let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self?.presentViewController(alertController, animated: true, completion: nil)
+        }
     }
     
     // MARK: - UI Actions
