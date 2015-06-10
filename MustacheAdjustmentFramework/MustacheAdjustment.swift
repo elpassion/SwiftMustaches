@@ -56,7 +56,7 @@ public class MustacheAdjustment {
     
     public func applyAdjustment(inputImage: UIImage) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(inputImage.size, true, inputImage.scale)
-        let context = UIGraphicsGetCurrentContext()
+        _ = UIGraphicsGetCurrentContext()
         inputImage.drawAtPoint(CGPointZero)
         
         for mustachePosition in mustachePositions {

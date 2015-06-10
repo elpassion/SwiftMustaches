@@ -52,7 +52,7 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
             return
         }
         
-        let fullSizeImageUrl = input.fullSizeImageURL
+        let fullSizeImageUrl = input.fullSizeImageURL!
         let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
         
         if input.adjustmentData != nil {
@@ -86,17 +86,17 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
                 return
             }
             
-            let output = PHContentEditingOutput(contentEditingInput: self.input)
+            let output = PHContentEditingOutput(contentEditingInput: self.input!)
             output.adjustmentData = self.adjustment!.adjustmentData()
             
-            let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(self.image, 0.9)
+            let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(self.image!, 0.9)!
             
             do {
                 try fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite)
                 NSLog("Saved successfully")
                 completionHandler?(output)
             }
-            catch var error as NSError {
+            catch let error as NSError {
                 NSLog("Error when writing file: \(error)")
                 completionHandler?(nil)
             }

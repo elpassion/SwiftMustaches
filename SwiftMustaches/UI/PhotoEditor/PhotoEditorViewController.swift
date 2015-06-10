@@ -22,7 +22,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     var input: PHContentEditingInput? {
         didSet {
             if let input = input {
-                let fullSizeImageUrl = input.fullSizeImageURL
+                let fullSizeImageUrl = input.fullSizeImageURL!
                 let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
                 if input.adjustmentData != nil {
                     adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
@@ -150,7 +150,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
                 }
                 else {
                     NSLog("Loaded asset WITH adjustment data")
-                    self?.adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
+                    self?.adjustment = MustacheAdjustment(adjustmentData: input!.adjustmentData)
                 }
                 
                 self?.asset = asset
@@ -183,7 +183,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         saving = true
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
-            let fullSizeImageUrl = input.fullSizeImageURL
+            let fullSizeImageUrl = input.fullSizeImageURL!
             let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
             
             if adjustment == nil {
@@ -201,13 +201,13 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             output.adjustmentData = adjustment.adjustmentData()
             
             let fullSizeAnnotatedImage = adjustment.applyAdjustment(fullSizeImage!)
-            let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
+            let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)!
             
             var error: NSError?
             do {
                 try fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite)
             }
-            catch var e as NSError {
+            catch let e as NSError {
                 error = e
             }
             catch {
@@ -215,7 +215,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             }
             
             if let error = error {
-                self?.presentErrorAlertView(message: "Error when writing file: \(error?.localizedDescription)")
+                self?.presentErrorAlertView(message: "Error when writing file: \(error.localizedDescription)")
                 self?.saving = false
                 return
             }
@@ -245,7 +245,6 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             presentErrorAlertView(message: "Can't revert, no input")
             return
         }
-        let input = self.input!
         
         if self.asset == nil {
             presentErrorAlertView(message: "Can't revert, no asset")
@@ -321,7 +320,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
                 return
             }
             
-            if changeDetailsForAsset.objectWasDeleted {
+            if changeDetailsForAsset!.objectWasDeleted {
                 NSLog("PhotoLibrary: Asset deleted")
                 self?.loading = true
                 self?.loadAsset(nil, completion: { () -> Void in
@@ -331,8 +330,8 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
                 return
             }
             
-            if changeDetailsForAsset.assetContentChanged {
-                if let assetAfterChanges = changeDetailsForAsset.objectAfterChanges as? PHAsset {
+            if changeDetailsForAsset!.assetContentChanged {
+                if let assetAfterChanges = changeDetailsForAsset!.objectAfterChanges as? PHAsset {
                     NSLog("PhotoLibrary: Asset changed")
                     self?.loading = true
                     self?.loadAsset(assetAfterChanges, completion: { () -> Void in
