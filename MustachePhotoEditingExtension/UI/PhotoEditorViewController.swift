@@ -91,24 +91,17 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
             
             let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(self.image, 0.9)
             
-            var error: NSError?
-            let success: Bool
             do {
                 try fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite)
-                success = true
-            } catch var error1 as NSError {
-                error = error1
-                success = false
-            } catch {
-                fatalError()
-            }
-            if success {
                 NSLog("Saved successfully")
                 completionHandler?(output)
             }
-            else {
+            catch var error as NSError {
                 NSLog("Error when writing file: \(error)")
                 completionHandler?(nil)
+            }
+            catch {
+                fatalError()
             }
         }
     }

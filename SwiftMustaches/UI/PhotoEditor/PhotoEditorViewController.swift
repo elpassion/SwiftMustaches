@@ -204,17 +204,17 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
             
             var error: NSError?
-            let success: Bool
             do {
                 try fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite)
-                success = true
-            } catch var error1 as NSError {
-                error = error1
-                success = false
-            } catch {
+            }
+            catch var e as NSError {
+                error = e
+            }
+            catch {
                 fatalError()
             }
-            if !success {
+            
+            if let error = error {
                 self?.presentErrorAlertView(message: "Error when writing file: \(error?.localizedDescription)")
                 self?.saving = false
                 return
