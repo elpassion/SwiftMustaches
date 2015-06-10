@@ -24,18 +24,23 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             if let input = input {
                 let fullSizeImageUrl = input.fullSizeImageURL!
                 let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
-                if input.adjustmentData != nil {
-                    adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
-                    photoImageView.image = self.adjustment!.applyAdjustment(fullSizeImage!)
-                }
-                else {
-                    adjustment = nil
-                    photoImageView.image = fullSizeImage
-                }
+                dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
+                    if let strongSelf = self {
+                        strongSelf.adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
+                        if let _ = strongSelf.adjustment {
+                            strongSelf.photoImageView.image = strongSelf.adjustment!.applyAdjustment(fullSizeImage!)
+                        }
+                        else {
+                            strongSelf.photoImageView.image = fullSizeImage
+                        }
+                    }
+                })
             }
             else {
-                adjustment = nil
-                photoImageView.image = nil
+                dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
+                    self?.adjustment = nil
+                    self?.photoImageView.image = nil
+                })
             }
             updateUI()
         }
@@ -144,13 +149,18 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             }
             
             asset.requestContentEditingInputWithOptions(options, completionHandler: { (input, info) -> Void in
-                if input.adjustmentData == nil {
-                    NSLog("Loaded asset WITHOUT adjustment data")
-                    self?.adjustment = nil
+                if let input = input {
+                    self?.adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
                 }
                 else {
+                    self?.adjustment = nil
+                }
+                
+                if let _ = self?.adjustment {
                     NSLog("Loaded asset WITH adjustment data")
-                    self?.adjustment = MustacheAdjustment(adjustmentData: input!.adjustmentData)
+                }
+                else {
+                    NSLog("Loaded asset WITHOUT adjustment data")
                 }
                 
                 self?.asset = asset
@@ -189,13 +199,13 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             if adjustment == nil {
                 adjustment = MustacheAdjustment(image: fullSizeImage!)
             }
-            let adjustment = adjustment!
             
-            if adjustment.mustachePositions.count == 0 {
+            if adjustment == nil {
                 self?.presentErrorAlertView(message: "Unable to add mustaches")
                 self?.saving = false
                 return
             }
+            let adjustment = adjustment!
             
             let output = PHContentEditingOutput(contentEditingInput: input)
             output.adjustmentData = adjustment.adjustmentData()
