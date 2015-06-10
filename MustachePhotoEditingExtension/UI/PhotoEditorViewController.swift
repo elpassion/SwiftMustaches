@@ -55,21 +55,23 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
         let fullSizeImageUrl = input.fullSizeImageURL!
         let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
         
-        if input.adjustmentData != nil {
-            adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
-            adjustmentAlreadySet = true
+        adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
+        adjustmentAlreadySet = (adjustment != nil)
+        
+        if adjustmentAlreadySet == false {
+            NSLog("Loaded asset WITHOUT adjustment data")
+            adjustment = MustacheAdjustment(image: fullSizeImage!)
         }
         else {
-            adjustment = MustacheAdjustment(image: fullSizeImage!)
-            adjustmentAlreadySet = false
+            NSLog("Loaded asset WITH adjustment data")
         }
         
-        if adjustment!.mustachePositions.count == 0 {
-            presentErrorAlertView(message: "Unable to add mustaches")
-            image = fullSizeImage
+        if let adjustment = adjustment {
+            image = adjustment.applyAdjustment(fullSizeImage!)
         }
         else {
-            image = adjustment!.applyAdjustment(fullSizeImage!)
+            presentErrorAlertView(message: "Unable to add mustaches")
+            image = fullSizeImage
         }
     }
 
