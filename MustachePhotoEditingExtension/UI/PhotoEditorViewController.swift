@@ -92,7 +92,16 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
             let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(self.image, 0.9)
             
             var error: NSError?
-            let success = fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite, error: &error)
+            let success: Bool
+            do {
+                try fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite)
+                success = true
+            } catch var error1 as NSError {
+                error = error1
+                success = false
+            } catch {
+                fatalError()
+            }
             if success {
                 NSLog("Saved successfully")
                 completionHandler?(output)
@@ -114,24 +123,24 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
     
     private func setupBackgroundEffect() {
         let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
-        effectView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        effectView.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(effectView, aboveSubview: backgroundImageView)
         
         let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
             "V:|[effectView]|",
-            options: NSLayoutFormatOptions.allZeros,
+            options: NSLayoutFormatOptions(),
             metrics: nil,
             views: ["effectView": effectView])
         let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
             "H:|[effectView]|",
-            options: NSLayoutFormatOptions.allZeros,
+            options: NSLayoutFormatOptions(),
             metrics: nil,
             views: ["effectView": effectView])
         view.addConstraints(verticalConstraints)
         view.addConstraints(horizontalConstraints)
     }
     
-    private func presentErrorAlertView(#message: String) -> Void {
+    private func presentErrorAlertView(message message: String) -> Void {
         let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alertController, animated: true, completion: nil)

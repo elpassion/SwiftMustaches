@@ -56,7 +56,7 @@ public class MustacheAdjustment {
     
     public func applyAdjustment(inputImage: UIImage) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(inputImage.size, true, inputImage.scale)
-        let context = UIGraphicsGetCurrentContext()!
+        let context = UIGraphicsGetCurrentContext()
         inputImage.drawAtPoint(CGPointZero)
         
         for mustachePosition in mustachePositions {
@@ -65,7 +65,7 @@ public class MustacheAdjustment {
             NSLog("Mustache drawed")
         }
         
-        let outputImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return outputImage
     }
@@ -80,7 +80,7 @@ public class MustacheAdjustment {
         return false
     }
     
-    private class func mustachePosition(#imageSize: CGSize, faceFeature: CIFaceFeature) -> MustachePosition? {
+    private class func mustachePosition(imageSize imageSize: CGSize, faceFeature: CIFaceFeature) -> MustachePosition? {
         if !faceFeature.hasMouthPosition { return nil }
         
         let mustacheSize = CGSize(

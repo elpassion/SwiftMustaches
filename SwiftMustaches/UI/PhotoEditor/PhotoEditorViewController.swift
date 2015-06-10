@@ -93,7 +93,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         })
     }
     
-    private func presentErrorAlertView(#message: String) -> Void {
+    private func presentErrorAlertView(message message: String) -> Void {
         let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
         self.presentViewController(alertController, animated: true, completion: nil)
@@ -204,7 +204,16 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
             
             var error: NSError?
-            let success = fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite, error: &error)
+            let success: Bool
+            do {
+                try fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite)
+                success = true
+            } catch var error1 as NSError {
+                error = error1
+                success = false
+            } catch {
+                fatalError()
+            }
             if !success {
                 self?.presentErrorAlertView(message: "Error when writing file: \(error?.localizedDescription)")
                 self?.saving = false
@@ -263,7 +272,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
 
     // MARK: - UIImagePickerControllerDelegate
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])  {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject])  {
         let assetUrlOptional: NSURL? = info[UIImagePickerControllerReferenceURL] as? NSURL
         if assetUrlOptional == nil {
             NSLog("Error: no asset URL")
@@ -301,7 +310,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - PHPhotoLibraryChangeObserver
     
-    func photoLibraryDidChange(changeInstance: PHChange!) {
+    func photoLibraryDidChange(changeInstance: PHChange) {
         dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
             if self?.asset == nil {
                 return
