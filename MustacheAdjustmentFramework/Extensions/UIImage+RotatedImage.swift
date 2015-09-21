@@ -16,7 +16,7 @@ public extension UIImage {
         rotatedViewBox.transform = rotatedViewBoxTransform
         let rotatedSize = rotatedViewBox.frame.size
         
-        UIGraphicsPushContext(UIGraphicsGetCurrentContext())
+        UIGraphicsPushContext(UIGraphicsGetCurrentContext()!)
         UIGraphicsBeginImageContextWithOptions(rotatedSize, false, self.scale)
         let context = UIGraphicsGetCurrentContext()
         CGContextTranslateCTM(context, rotatedSize.width / 2, rotatedSize.height / 2);
