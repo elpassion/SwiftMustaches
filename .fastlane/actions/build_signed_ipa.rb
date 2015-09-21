@@ -27,8 +27,7 @@ module Fastlane
           "-configuration", "\"#{configuration}\"",
           "-sdk", "\"#{sdk}\"",
           "ONLY_ACTIVE_ARCH=NO",
-          "CONFIGURATION_BUILD_DIR=\"#{build_path}\"",
-          "PROVISIONING_PROFILE=\"#{mobileprovision_uuid}\""
+          "CONFIGURATION_BUILD_DIR=\"#{build_path}\""
         ].join(" ")
         
         Helper.log.info 'Creating signed IPA file...'

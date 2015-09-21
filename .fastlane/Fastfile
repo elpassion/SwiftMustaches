@@ -17,8 +17,7 @@ lane :inhouse do
     build_path: "#{@project_path}/build",
     app_name: 'SwiftMustaches',
     sign_identity: 'iPhone Distribution: EL Passion Next Sp. z o.o.',
-    mobileprovision_path: "#{@project_path}/Misc/ProvisioningProfiles/SwiftMustaches_InHouse.mobileprovision",
-    mobileprovision_uuid: "5131d531-8712-4f2c-acbb-6406706c3e5a"
+    mobileprovision_path: "#{@project_path}/Misc/ProvisioningProfiles/SwiftMustaches_InHouse.mobileprovision"
   )
 
   crashlytics({
