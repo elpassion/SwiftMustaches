@@ -22,9 +22,9 @@ class FaceDetector {
             ])
         
         UIGraphicsBeginImageContextWithOptions(image.size, true, image.scale)
-        let context = UIGraphicsGetCurrentContext()!
+        _ = UIGraphicsGetCurrentContext()
         image.drawAtPoint(CGPointZero)
-        let cgImage = UIGraphicsGetImageFromCurrentImageContext()!.CGImage
+        let cgImage = UIGraphicsGetImageFromCurrentImageContext().CGImage!
         let ciImage = CIImage(CGImage: cgImage)
         UIGraphicsEndImageContext()
         

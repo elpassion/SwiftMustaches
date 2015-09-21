@@ -19,16 +19,17 @@ public class MustacheAdjustment {
     
     // MARK: - Initialization
     
-    public init(adjustmentData: PHAdjustmentData) {
+    public init?(adjustmentData: PHAdjustmentData) {
         if let mustachePositions = NSKeyedUnarchiver.unarchiveObjectWithData(adjustmentData.data) as? [MustachePosition] {
             self.mustachePositions = mustachePositions
         }
         else {
             mustachePositions = []
+            return nil
         }
     }
     
-    public init(image: UIImage) {
+    public init?(image: UIImage) {
         var mustachePositions: [MustachePosition] = []
         
         for faceFeature in FaceDetector.detectFaces(inImage: image) {
@@ -42,6 +43,10 @@ public class MustacheAdjustment {
         }
         
         self.mustachePositions = mustachePositions
+        
+        if self.mustachePositions.count == 0 {
+            return nil
+        }
     }
     
     // MARK: -
@@ -56,7 +61,7 @@ public class MustacheAdjustment {
     
     public func applyAdjustment(inputImage: UIImage) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(inputImage.size, true, inputImage.scale)
-        let context = UIGraphicsGetCurrentContext()!
+        _ = UIGraphicsGetCurrentContext()
         inputImage.drawAtPoint(CGPointZero)
         
         for mustachePosition in mustachePositions {
@@ -65,7 +70,7 @@ public class MustacheAdjustment {
             NSLog("Mustache drawed")
         }
         
-        let outputImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return outputImage
     }
@@ -80,7 +85,7 @@ public class MustacheAdjustment {
         return false
     }
     
-    private class func mustachePosition(#imageSize: CGSize, faceFeature: CIFaceFeature) -> MustachePosition? {
+    private class func mustachePosition(imageSize imageSize: CGSize, faceFeature: CIFaceFeature) -> MustachePosition? {
         if !faceFeature.hasMouthPosition { return nil }
         
         let mustacheSize = CGSize(

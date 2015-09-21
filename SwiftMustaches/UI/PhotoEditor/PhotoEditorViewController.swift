@@ -22,20 +22,25 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     var input: PHContentEditingInput? {
         didSet {
             if let input = input {
-                let fullSizeImageUrl = input.fullSizeImageURL
+                let fullSizeImageUrl = input.fullSizeImageURL!
                 let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
-                if input.adjustmentData != nil {
-                    adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
-                    photoImageView.image = self.adjustment!.applyAdjustment(fullSizeImage!)
-                }
-                else {
-                    adjustment = nil
-                    photoImageView.image = fullSizeImage
-                }
+                dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
+                    if let strongSelf = self {
+                        strongSelf.adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
+                        if let _ = strongSelf.adjustment {
+                            strongSelf.photoImageView.image = strongSelf.adjustment!.applyAdjustment(fullSizeImage!)
+                        }
+                        else {
+                            strongSelf.photoImageView.image = fullSizeImage
+                        }
+                    }
+                })
             }
             else {
-                adjustment = nil
-                photoImageView.image = nil
+                dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
+                    self?.adjustment = nil
+                    self?.photoImageView.image = nil
+                })
             }
             updateUI()
         }
@@ -93,10 +98,12 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         })
     }
     
-    private func presentErrorAlertView(#message: String) -> Void {
-        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
+    private func presentErrorAlertView(message message: String) -> Void {
+        dispatch_async(dispatch_get_main_queue()) { [weak self] () -> Void in
+            let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self?.presentViewController(alertController, animated: true, completion: nil)
+        }
     }
     
     // MARK: - UI Actions
@@ -144,13 +151,18 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             }
             
             asset.requestContentEditingInputWithOptions(options, completionHandler: { (input, info) -> Void in
-                if input.adjustmentData == nil {
-                    NSLog("Loaded asset WITHOUT adjustment data")
-                    self?.adjustment = nil
+                if let input = input {
+                    self?.adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
                 }
                 else {
+                    self?.adjustment = nil
+                }
+                
+                if let _ = self?.adjustment {
                     NSLog("Loaded asset WITH adjustment data")
-                    self?.adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
+                }
+                else {
+                    NSLog("Loaded asset WITHOUT adjustment data")
                 }
                 
                 self?.asset = asset
@@ -183,30 +195,39 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
         saving = true
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { [weak self] () -> Void in
-            let fullSizeImageUrl = input.fullSizeImageURL
+            let fullSizeImageUrl = input.fullSizeImageURL!
             let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
             
             if adjustment == nil {
                 adjustment = MustacheAdjustment(image: fullSizeImage!)
             }
-            let adjustment = adjustment!
             
-            if adjustment.mustachePositions.count == 0 {
+            if adjustment == nil {
                 self?.presentErrorAlertView(message: "Unable to add mustaches")
                 self?.saving = false
                 return
             }
+            let adjustment = adjustment!
             
             let output = PHContentEditingOutput(contentEditingInput: input)
             output.adjustmentData = adjustment.adjustmentData()
             
             let fullSizeAnnotatedImage = adjustment.applyAdjustment(fullSizeImage!)
-            let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)
+            let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(fullSizeAnnotatedImage, 0.9)!
             
             var error: NSError?
-            let success = fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite, error: &error)
-            if !success {
-                self?.presentErrorAlertView(message: "Error when writing file: \(error?.localizedDescription)")
+            do {
+                try fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite)
+            }
+            catch let e as NSError {
+                error = e
+            }
+            catch {
+                fatalError()
+            }
+            
+            if let error = error {
+                self?.presentErrorAlertView(message: "Error when writing file: \(error.localizedDescription)")
                 self?.saving = false
                 return
             }
@@ -236,7 +257,6 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
             presentErrorAlertView(message: "Can't revert, no input")
             return
         }
-        let input = self.input!
         
         if self.asset == nil {
             presentErrorAlertView(message: "Can't revert, no asset")
@@ -263,7 +283,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
 
     // MARK: - UIImagePickerControllerDelegate
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])  {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject])  {
         let assetUrlOptional: NSURL? = info[UIImagePickerControllerReferenceURL] as? NSURL
         if assetUrlOptional == nil {
             NSLog("Error: no asset URL")
@@ -301,7 +321,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
     
     // MARK: - PHPhotoLibraryChangeObserver
     
-    func photoLibraryDidChange(changeInstance: PHChange!) {
+    func photoLibraryDidChange(changeInstance: PHChange) {
         dispatch_async(dispatch_get_main_queue(), { [weak self] () -> Void in
             if self?.asset == nil {
                 return
@@ -312,7 +332,7 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
                 return
             }
             
-            if changeDetailsForAsset.objectWasDeleted {
+            if changeDetailsForAsset!.objectWasDeleted {
                 NSLog("PhotoLibrary: Asset deleted")
                 self?.loading = true
                 self?.loadAsset(nil, completion: { () -> Void in
@@ -322,8 +342,8 @@ class PhotoEditorViewController: UIViewController, UIImagePickerControllerDelega
                 return
             }
             
-            if changeDetailsForAsset.assetContentChanged {
-                if let assetAfterChanges = changeDetailsForAsset.objectAfterChanges as? PHAsset {
+            if changeDetailsForAsset!.assetContentChanged {
+                if let assetAfterChanges = changeDetailsForAsset!.objectAfterChanges as? PHAsset {
                     NSLog("PhotoLibrary: Asset changed")
                     self?.loading = true
                     self?.loadAsset(assetAfterChanges, completion: { () -> Void in

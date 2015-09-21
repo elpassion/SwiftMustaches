@@ -16,9 +16,9 @@ public extension UIImage {
         rotatedViewBox.transform = rotatedViewBoxTransform
         let rotatedSize = rotatedViewBox.frame.size
         
-        UIGraphicsPushContext(UIGraphicsGetCurrentContext())
+        UIGraphicsPushContext(UIGraphicsGetCurrentContext()!)
         UIGraphicsBeginImageContextWithOptions(rotatedSize, false, self.scale)
-        let context = UIGraphicsGetCurrentContext()!
+        let context = UIGraphicsGetCurrentContext()
         CGContextTranslateCTM(context, rotatedSize.width / 2, rotatedSize.height / 2);
         CGContextRotateCTM(context, angle)
         self.drawInRect(CGRect(
@@ -27,7 +27,7 @@ public extension UIImage {
             width: self.size.width,
             height: self.size.height))
         
-        let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         UIGraphicsPopContext()
         

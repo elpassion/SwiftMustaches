@@ -6,9 +6,6 @@ module Fastlane
 
     class BuildSignedIpaAction < Action
       def self.run(params)
-        params = params.first
-        
-        project_path          = params[:project_path]
         workspace_path        = params[:workspace_path]
         scheme                = params[:scheme]
         configuration         = params[:configuration]
@@ -17,20 +14,15 @@ module Fastlane
         app_name              = params[:app_name]
         sign_identity         = params[:sign_identity]
         mobileprovision_path  = params[:mobileprovision_path]
+        mobileprovision_uuid  = params[:mobileprovision_uuid]
 
         Helper.log.info 'Building application...'
-
-        unless workspace_path.nil?
-          path_param = "-workspace \"#{workspace_path}\""
-        else
-          path_param = "-project \"#{project_path}\""
-        end
 
         Actions.sh [
           "xctool",
           "clean",
           "build",
-          path_param,
+          "-workspace", "\"#{workspace_path}\"",
           "-scheme", "\"#{scheme}\"",
           "-configuration", "\"#{configuration}\"",
           "-sdk", "\"#{sdk}\"",
@@ -63,7 +55,6 @@ module Fastlane
 
       def self.available_options
         [
-          ['project_path', 'Path to .xcodeproj file'],
           ['workspace_path', 'Path to .xcworkspace file'],
           ['scheme', 'Build scheme'],
           ['configuration', 'Build configuration (e.g. "Release")'],
@@ -71,7 +62,8 @@ module Fastlane
           ['build_path', 'Build directory path'],
           ['app_name', 'Application name'],
           ['sign_identity', 'Signing identity (e.g. "iPhone Distribution: MyCompany")'],
-          ['mobileprovision_path', 'Path to .mobileprovision file']
+          ['mobileprovision_path', 'Path to .mobileprovision file'],
+          ['mobileprovision_uuid', 'Mobile Provisioning Profile UUID'],
         ]
       end
 
@@ -84,6 +76,11 @@ module Fastlane
       def self.author
         "Darrarski"
       end
+
+      def self.is_supported?(platform)
+        platform == :ios
+      end
+      
     end
   end
 end

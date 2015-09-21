@@ -5,6 +5,6 @@ DEPENDENCIES:
   - CrashlyticsFramework (~> 2.2)
 
 SPEC CHECKSUMS:
-  CrashlyticsFramework: 2f7c515a2d74c8636bf47e761621f2f68193747e
+  CrashlyticsFramework: 5b7a9fb3d94124e3c20a9b10f93244706cfdb0f1
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.38.2

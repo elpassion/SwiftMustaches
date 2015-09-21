@@ -52,24 +52,26 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
             return
         }
         
-        let fullSizeImageUrl = input.fullSizeImageURL
+        let fullSizeImageUrl = input.fullSizeImageURL!
         let fullSizeImage = UIImage(contentsOfFile: fullSizeImageUrl.path!)
         
-        if input.adjustmentData != nil {
-            adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
-            adjustmentAlreadySet = true
+        adjustment = MustacheAdjustment(adjustmentData: input.adjustmentData)
+        adjustmentAlreadySet = (adjustment != nil)
+        
+        if adjustmentAlreadySet == false {
+            NSLog("Loaded asset WITHOUT adjustment data")
+            adjustment = MustacheAdjustment(image: fullSizeImage!)
         }
         else {
-            adjustment = MustacheAdjustment(image: fullSizeImage!)
-            adjustmentAlreadySet = false
+            NSLog("Loaded asset WITH adjustment data")
         }
         
-        if adjustment!.mustachePositions.count == 0 {
-            presentErrorAlertView(message: "Unable to add mustaches")
-            image = fullSizeImage
+        if let adjustment = adjustment {
+            image = adjustment.applyAdjustment(fullSizeImage!)
         }
         else {
-            image = adjustment!.applyAdjustment(fullSizeImage!)
+            presentErrorAlertView(message: "Unable to add mustaches")
+            image = fullSizeImage
         }
     }
 
@@ -79,27 +81,30 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
             let isAdjustmentSet = (self.adjustment != nil)
             let isMustachePositionSet = (self.adjustment?.mustachePositions.count > 0)
             let wasAdjustmentAlreadySet = self.adjustmentAlreadySet
+            
+            let output = PHContentEditingOutput(contentEditingInput: self.input!)
 
             if !isInputSet || !isAdjustmentSet || !isMustachePositionSet || wasAdjustmentAlreadySet {
                 NSLog("Nothing changed")
-                completionHandler?(nil)
+                completionHandler?(output)
                 return
             }
             
-            let output = PHContentEditingOutput(contentEditingInput: self.input)
             output.adjustmentData = self.adjustment!.adjustmentData()
             
-            let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(self.image, 0.9)
+            let fullSizeAnnotatedImageData = UIImageJPEGRepresentation(self.image!, 0.9)!
             
-            var error: NSError?
-            let success = fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite, error: &error)
-            if success {
+            do {
+                try fullSizeAnnotatedImageData.writeToURL(output.renderedContentURL, options: .AtomicWrite)
                 NSLog("Saved successfully")
                 completionHandler?(output)
             }
-            else {
+            catch let error as NSError {
                 NSLog("Error when writing file: \(error)")
                 completionHandler?(nil)
+            }
+            catch {
+                fatalError()
             }
         }
     }
@@ -114,27 +119,29 @@ class PhotoEditorViewController: UIViewController, PHContentEditingController {
     
     private func setupBackgroundEffect() {
         let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
-        effectView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        effectView.translatesAutoresizingMaskIntoConstraints = false
         view.insertSubview(effectView, aboveSubview: backgroundImageView)
         
         let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
             "V:|[effectView]|",
-            options: NSLayoutFormatOptions.allZeros,
+            options: NSLayoutFormatOptions(),
             metrics: nil,
             views: ["effectView": effectView])
         let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat(
             "H:|[effectView]|",
-            options: NSLayoutFormatOptions.allZeros,
+            options: NSLayoutFormatOptions(),
             metrics: nil,
             views: ["effectView": effectView])
         view.addConstraints(verticalConstraints)
         view.addConstraints(horizontalConstraints)
     }
     
-    private func presentErrorAlertView(#message: String) -> Void {
-        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-        self.presentViewController(alertController, animated: true, completion: nil)
+    private func presentErrorAlertView(message message: String) -> Void {
+        dispatch_async(dispatch_get_main_queue()) { [weak self] () -> Void in
+            let alertController = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self?.presentViewController(alertController, animated: true, completion: nil)
+        }
     }
 
 }
